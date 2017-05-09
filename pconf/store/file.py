@@ -10,20 +10,20 @@ class File():
     }
 
     def __init__(self, path, encoding='raw', parser=None):
-        self.__open_file(path)
+        self.__read_file(path)
         self.__set_encoding(encoding, parser)
+        self.__parse_content()
 
     def get(self):
-        if self.file_handle is None or self.parser is None:
-            return {}
-        return self.parser(self.file_handle.read())
+        return self.content
 
-    def __open_file(self, path):
+    def __read_file(self, path):
         try:
-            self.file_handle = open(path, 'r')
+            with open(path, 'r') as f:
+                self.content = f.read()
         except IOError:
             # TODO: log warning here
-            self.file_handle = None
+            self.content = ''
 
     def __set_encoding(self, encoding, parser=None):
         try:
@@ -31,3 +31,10 @@ class File():
         except KeyError:
             # TODO: log warning here
             self.parser = parser
+
+    def __parse_content(self):
+        try:
+            self.content = self.parser(self.content)
+        except:
+            # TODO: log warning here
+            self.content = {}

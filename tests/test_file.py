@@ -1,5 +1,6 @@
 from unittest import TestCase
 from mock import patch, mock_open, MagicMock
+import pconf
 from pconf.store.file import File
 
 
@@ -43,6 +44,20 @@ class TestFile(TestCase):
 
         self.assertEqual(result, TEST_FILE_DICT)
         self.assertIsInstance(result, dict)
+
+    @patch('pconf.store.file.open', mock_open(read_data=TEST_FILE_RAW))
+    def test_get_idempotent(self):
+        file_store = File(TEST_FILE_RAW)
+        result = file_store.get()
+
+        self.assertEqual(result, TEST_FILE_DICT)
+        self.assertIsInstance(result, dict)
+
+        result = file_store.get()
+
+        self.assertEqual(result, TEST_FILE_DICT)
+        self.assertIsInstance(result, dict)
+        pconf.store.file.open.assert_called_once()
 
     @patch('pconf.store.file.open', mock_open(read_data=TEST_FILE_RAW))
     def test_get_custom_encoding(self):
