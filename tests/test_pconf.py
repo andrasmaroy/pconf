@@ -20,6 +20,13 @@ class TestPconf(TestCase):
 
     @patch('pconf.store.file.File', new=MagicMock(), spec=File)
     def test_file(self):
+        Pconf.file(path=TEST_FILE_PATH)
+
+        pconf.store.file.File.assert_called_once_with(TEST_FILE_PATH, None, None)
+        self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
+
+    @patch('pconf.store.file.File', new=MagicMock(), spec=File)
+    def test_file_optional_params(self):
         encoding = 'custom'
         mock_parser = MagicMock()
         Pconf.file(path=TEST_FILE_PATH, encoding=encoding, parser=mock_parser)
