@@ -1,3 +1,4 @@
+import store.env
 import store.file
 
 
@@ -18,3 +19,7 @@ class Pconf(object):
     @classmethod
     def file(cls, path, encoding=None, parser=None):
         cls.__hierarchy.append(store.file.File(path, encoding, parser))
+
+    @classmethod
+    def env(cls):
+        cls.__hierarchy.append(store.env.Env())
