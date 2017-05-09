@@ -16,5 +16,5 @@ class Pconf(object):
         return results
 
     @classmethod
-    def file(cls, path):
-        cls.__hierarchy.append(store.file.File(path))
+    def file(cls, path, encoding=None, parser=None):
+        cls.__hierarchy.append(store.file.File(path, encoding, parser))
