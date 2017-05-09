@@ -1,9 +1,11 @@
 from ast import literal_eval
+import json
 
 
 # TODO: add docstring
 class File():
     ENCODINGS = {
+        'json': json.loads,
         'raw': literal_eval
     }
 
