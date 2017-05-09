@@ -50,7 +50,17 @@ class TestPconf(TestCase):
     def test_env(self):
         Pconf.env()
 
-        pconf.store.env.Env.assert_called_once()
+        pconf.store.env.Env.assert_called_once_with(None, None, None)
+        self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
+
+    @patch('pconf.store.env.Env', new=MagicMock(), spec=Env)
+    def test_env_optional_params(self):
+        separator = 'separator'
+        match = 'match'
+        whitelist = 'whitelist'
+        Pconf.env(separator, match, whitelist)
+
+        pconf.store.env.Env.assert_called_once_with(separator, match, whitelist)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch('pconf.store.env.Env', new=MagicMock(), spec=Env)

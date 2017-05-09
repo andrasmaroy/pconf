@@ -21,5 +21,5 @@ class Pconf(object):
         cls.__hierarchy.append(store.file.File(path, encoding, parser))
 
     @classmethod
-    def env(cls):
-        cls.__hierarchy.append(store.env.Env())
+    def env(cls, separator=None, match=None, whitelist=None):
+        cls.__hierarchy.append(store.env.Env(separator, match, whitelist))
