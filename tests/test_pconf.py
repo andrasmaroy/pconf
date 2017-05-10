@@ -34,14 +34,16 @@ class TestPconf(TestCase):
         pconf.store.file.File.assert_called_once_with(TEST_FILE_PATH, encoding, mock_parser)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
-    @patch('pconf.store.file.File', new=MagicMock(), spec=File)
-    def test_file_get(self):
-        Pconf.file(path=TEST_FILE_PATH)
-        Pconf._Pconf__hierarchy[0].get.return_value = TEST_FILE_RESULT
+    @patch('pconf.store.file.File')
+    def test_file_get(self, mock_file):
+        mocked_file = MagicMock()
+        mocked_file.get.return_value = TEST_FILE_RESULT
+        mock_file.return_value = mocked_file
 
+        Pconf.file(path=TEST_FILE_PATH)
         results = Pconf.get()
 
-        Pconf._Pconf__hierarchy[0].get.assert_called_once()
+        mocked_file.get.assert_called_once()
         for key in TEST_FILE_RESULT.iterkeys():
             self.assertTrue(key in results)
             self.assertEqual(results[key], TEST_FILE_RESULT[key])
@@ -63,13 +65,16 @@ class TestPconf(TestCase):
         pconf.store.env.Env.assert_called_once_with(separator, match, whitelist)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
-    @patch('pconf.store.env.Env', new=MagicMock(), spec=Env)
-    def test_env_get(self):
+    @patch('pconf.store.env.Env')
+    def test_env_get(self, mock_env):
+        mocked_env = MagicMock()
+        mocked_env.get.return_value = TEST_ENV_RESULT
+        mock_env.return_value = mocked_env
+
         Pconf.env()
-        Pconf._Pconf__hierarchy[0].get.return_value = TEST_ENV_RESULT
         results = Pconf.get()
 
-        Pconf._Pconf__hierarchy[0].get.assert_called_once()
+        mocked_env.get.assert_called_once()
         for key in TEST_ENV_RESULT.iterkeys():
             self.assertTrue(key in results)
             self.assertEqual(results[key], TEST_ENV_RESULT[key])
