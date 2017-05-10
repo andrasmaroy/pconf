@@ -43,6 +43,22 @@ class TestEnv(TestCase):
         self.assertIsInstance(result, dict)
 
     @patch('pconf.store.env.os', new=MagicMock())
+    def test_get_idempotent(self):
+        pconf.store.env.os.environ = TEST_ENV_VARS
+
+        env_store = Env()
+        result = env_store.get()
+
+        self.assertEqual(result, TEST_ENV_VARS)
+        self.assertIsInstance(result, dict)
+
+        pconf.store.env.os.environ = TEST_ENV_BASE_VARS
+        result = env_store.get()
+
+        self.assertEqual(result, TEST_ENV_VARS)
+        self.assertIsInstance(result, dict)
+
+    @patch('pconf.store.env.os', new=MagicMock())
     def test_whitelist(self):
         pconf.store.env.os.environ = TEST_ENV_VARS
         env_store = Env(whitelist=TEST_WHITELIST)
