@@ -23,3 +23,15 @@ class Pconf(object):
     @classmethod
     def env(cls, separator=None, match=None, whitelist=None):
         cls.__hierarchy.append(store.env.Env(separator, match, whitelist))
+
+    @classmethod
+    def argv(cls):
+        raise NotImplementedError
+
+    @classmethod
+    def defaults(cls):
+        raise NotImplementedError
+
+    @classmethod
+    def overrides(cls):
+        raise NotImplementedError
