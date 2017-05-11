@@ -34,22 +34,16 @@ class Pconf(object):
         return results
 
     @classmethod
-    def file(cls, path, encoding=None, parser=None):
-        """Set a file as a source.
+    def defaults(cls):
+        raise NotImplementedError
 
-        File are parsed as literal python dicts by default, this behaviour
-        can be configured.
+    @classmethod
+    def overrides(cls):
+        raise NotImplementedError
 
-        Args:
-            path: The path to the file to be parsed
-            encoding: The encoding of the file.
-                Defaults to 'raw'. Available built-in values: 'json'.
-                Custom value can be used in conjunction with parser.
-            parser: A parser function for a custom encoder.
-                It is expected to return a dict containing the parsed values
-                when called with the contents of the file as an argument.
-        """
-        cls.__hierarchy.append(store.file.File(path, encoding, parser))
+    @classmethod
+    def argv(cls):
+        raise NotImplementedError
 
     @classmethod
     def env(cls, separator=None, match=None, whitelist=None):
@@ -69,13 +63,19 @@ class Pconf(object):
         cls.__hierarchy.append(store.env.Env(separator, match, whitelist))
 
     @classmethod
-    def argv(cls):
-        raise NotImplementedError
+    def file(cls, path, encoding=None, parser=None):
+        """Set a file as a source.
 
-    @classmethod
-    def defaults(cls):
-        raise NotImplementedError
+        File are parsed as literal python dicts by default, this behaviour
+        can be configured.
 
-    @classmethod
-    def overrides(cls):
-        raise NotImplementedError
+        Args:
+            path: The path to the file to be parsed
+            encoding: The encoding of the file.
+                Defaults to 'raw'. Available built-in values: 'json'.
+                Custom value can be used in conjunction with parser.
+            parser: A parser function for a custom encoder.
+                It is expected to return a dict containing the parsed values
+                when called with the contents of the file as an argument.
+        """
+        cls.__hierarchy.append(store.file.File(path, encoding, parser))
