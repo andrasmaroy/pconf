@@ -112,18 +112,18 @@ Pconf.file('/path/to/literal')
 #### Built-in encodings:
 These are the built-in supported encodings, that can be passed as the `encoding` parameter to the function.
 * json
-``` python
-"""
-`/path/to/config.json` contents:
-{
-    "example": {
-        "key": "value",
-        "another": "stuff"
+    ``` python
+    """
+    `/path/to/config.json` contents:
+    {
+        "example": {
+            "key": "value",
+            "another": "stuff"
+        }
     }
-}
-"""
-Pconf.file('/path/to/config.json', encoding='json')
-```
+    """
+    Pconf.file('/path/to/config.json', encoding='json')
+    ```
 
 #### Using custom file formats
 To use custom encodings supply a parser along with an encoding that is not built-in. The parser is a function that expects the file contents as its argument and returns a dict containing the parsed contents.
