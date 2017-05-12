@@ -55,17 +55,27 @@ The available sources (more details about the below) in a sensible order:
 
 ## Config sources
 
-### Defaults
+### Defaults, overrides
 **Not yet implemented**
-
-### Overrides
-**Not yet implemented**
+These two sources are essentially the same, pass a `dict` to when attaching and they will return that when queried.
+``` python
+Pconf.overrides({'key': 'override_value'})
+Pconf.defaults({'key': 'default_value'})
+```
+Very simple, as the name suggests these are to allow the user to set defaults and override whatever value.
 
 ### Argv
 **Not yet implemented**
+Responsible for loading values parsed from command line arguments passed to the process.
+
+Argv is expecting a parameters which are then passed to [argparse](https://docs.python.org/2/howto/argparse.html), see the documentation of the [add_argument()](https://docs.python.org/2/library/argparse.html#argparse.ArgumentParser.add_argument) for details.
+``` python
+Pconf.argv("-v", "--verbose", action="store_true")
+Pconf.argv("-q", "--quiet", action="store_true")
+```
 
 ### Env
-Responsible for loading values parsesd from `os.environ` into the configuration hierarchy
+Responsible for loading values parsesd from `os.environ` into the configuration hierarchy.
 ``` python
 # Just load all the variables available for the process
 Pconf.env()
@@ -88,28 +98,30 @@ Pconf.env(separator='__',
 ```
 
 ### File
-Responsible for loading values parsesd from a given file into the configuration hierarchy
+Responsible for loading values parsed from a given file into the configuration hierarchy.
 
 By default tries to parse file contents as literal python variables, use the `encoding` parameter to set the file format/encoding.
+``` python
+"""
 `/path/to/literal` contents:
-``` python
 {'this': 'is_a_literal_python_dict'}
-```
-``` python
+"""
 Pconf.file('/path/to/literal')
 ```
 
-Currently the supported built-in encoding is 'json'.
+#### Built-in encodings:
+These are the built-in supported encodings, that can be passed as the `encoding` parameter to the function.
+* json
+``` python
+"""
 `/path/to/config.json` contents:
-``` json
 {
     "example": {
         "key": "value",
         "another": "stuff"
     }
 }
-```
-``` python
+"""
 Pconf.file('/path/to/config.json', encoding='json')
 ```
 
