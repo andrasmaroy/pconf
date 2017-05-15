@@ -1,5 +1,6 @@
 import store.env
 import store.file
+import store.memory
 
 
 class Pconf(object):
@@ -34,12 +35,28 @@ class Pconf(object):
         return results
 
     @classmethod
-    def defaults(cls):
-        raise NotImplementedError
+    def defaults(cls, data):
+        """ Set passed values as a source
+
+        Stores the passed dict in memory, use to manually set default values
+        in the hierarchy, by setting this in the end.
+
+        Args:
+            data: the dict to store
+        """
+        cls.__hierarchy.append(store.memory.Memory(data))
 
     @classmethod
-    def overrides(cls):
-        raise NotImplementedError
+    def overrides(cls, data):
+        """ Set passed values as a source
+
+        Stores the passed dict in memory, use to manually override any values
+        in the hierarchy, by setting this in the front.
+
+        Args:
+            data: the dict to store
+        """
+        cls.__hierarchy.append(store.memory.Memory(data))
 
     @classmethod
     def argv(cls):

@@ -4,11 +4,14 @@ import pconf
 from pconf import Pconf
 from pconf.store.file import File
 from pconf.store.env import Env
+from pconf.store.memory import Memory
 
 
 TEST_FILE_PATH = 'test'
 TEST_FILE_RESULT = {'file': 'result'}
 TEST_ENV_RESULT = {'env': 'result'}
+TEST_DEFAULTS = {'defaults': 'result'}
+TEST_OVERRIDES = {'overrides': 'result'}
 
 
 class TestPconf(TestCase):
@@ -78,3 +81,25 @@ class TestPconf(TestCase):
         for key in TEST_ENV_RESULT.iterkeys():
             self.assertTrue(key in results)
             self.assertEqual(results[key], TEST_ENV_RESULT[key])
+
+    @patch('pconf.store.memory.Memory', new=MagicMock(), spec=Memory)
+    def test_defaults(self):
+        Pconf.defaults(TEST_DEFAULTS)
+
+        pconf.store.memory.Memory.assert_called_once_with(TEST_DEFAULTS)
+        self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
+
+    def test_defaults_get(self):
+        Pconf.defaults(TEST_DEFAULTS)
+        self.assertEqual(Pconf.get(), TEST_DEFAULTS)
+
+    @patch('pconf.store.memory.Memory', new=MagicMock(), spec=Memory)
+    def test_overrides(self):
+        Pconf.overrides(TEST_OVERRIDES)
+
+        pconf.store.memory.Memory.assert_called_once_with(TEST_OVERRIDES)
+        self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
+
+    def test_overrides_get(self):
+        Pconf.defaults(TEST_OVERRIDES)
+        self.assertEqual(Pconf.get(), TEST_OVERRIDES)
