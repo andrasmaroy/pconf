@@ -1,7 +1,7 @@
 from unittest import TestCase
 from mock import patch, mock_open, MagicMock
-import pconf
 from pconf.store.file import File
+import __builtin__
 
 
 TEST_FILE_PATH = 'test'
@@ -57,7 +57,7 @@ class TestFile(TestCase):
 
         self.assertEqual(result, TEST_FILE_DICT)
         self.assertIsInstance(result, dict)
-        pconf.store.file.open.assert_called_once()
+        __builtin__.open.assert_called_once()
 
     @patch('__builtin__.open', mock_open(read_data=TEST_FILE_RAW))
     def test_get_custom_encoding(self):
