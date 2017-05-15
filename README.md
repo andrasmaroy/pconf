@@ -59,7 +59,6 @@ The available sources (more details about the below) in a sensible order:
 ## Config sources
 
 ### Defaults, overrides
-**Not yet implemented**
 These two sources are essentially the same, pass a `dict` to when attaching and they will return that when queried.
 ``` python
 Pconf.overrides({'key': 'override_value'})
