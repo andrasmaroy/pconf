@@ -1,4 +1,7 @@
 # pconf
+
+[![Build Status](https://api.travis-ci.org/andrasmaroy/pconf.svg?branch=master)](https://travis-ci.org/andrasmaroy/pconf)
+
 Hierarchical python configuration with files, environment variables, command-line arguments. Inspired by [nconf](https://github.com/indexzero/nconf).
 
 ## Example
