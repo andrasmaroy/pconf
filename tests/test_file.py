@@ -29,7 +29,7 @@ class TestFile(TestCase):
         self.assertEqual(result, {})
         self.assertIsInstance(result, dict)
 
-    @patch('__builtin__.open'.format(__name__), side_effect=throw_ioerror)
+    @patch('__builtin__.open', side_effect=throw_ioerror)
     def test_custom_encoding_without_parser_returns_empty_dict(self, mock_open):
         file_store = File(TEST_FILE_PATH, encoding='foo')
         result = file_store.get()
@@ -47,7 +47,7 @@ class TestFile(TestCase):
 
     @patch('__builtin__.open', mock_open(read_data=TEST_FILE_RAW))
     def test_get_idempotent(self):
-        file_store = File(TEST_FILE_RAW)
+        file_store = File(TEST_FILE_PATH)
         result = file_store.get()
 
         self.assertEqual(result, TEST_FILE_DICT)
@@ -57,7 +57,7 @@ class TestFile(TestCase):
 
         self.assertEqual(result, TEST_FILE_DICT)
         self.assertIsInstance(result, dict)
-        __builtin__.open.assert_called_once()
+        __builtin__.open.assert_called_once_with(TEST_FILE_PATH, 'r')
 
     @patch('__builtin__.open', mock_open(read_data=TEST_FILE_RAW))
     def test_get_custom_encoding(self):
