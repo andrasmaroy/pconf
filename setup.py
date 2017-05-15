@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name="pconf",
-    version="0.2.1",
+    version="0.3.0",
     author="Andras Maroy",
     author_email="andras@maroy.hu",
     description=("Hierarchical python configuration with files, environment variables, command-line arguments."),
