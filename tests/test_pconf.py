@@ -5,6 +5,7 @@ from pconf import Pconf
 from pconf.store.file import File
 from pconf.store.env import Env
 from pconf.store.memory import Memory
+from pconf.store.argv import Argv
 
 
 TEST_FILE_PATH = 'test'
@@ -12,6 +13,8 @@ TEST_FILE_RESULT = {'file': 'result'}
 TEST_ENV_RESULT = {'env': 'result'}
 TEST_DEFAULTS = {'defaults': 'result'}
 TEST_OVERRIDES = {'overrides': 'result'}
+TEST_ARGV = {'name': 'test', 'short_name': 't', 'type': str, 'help': 'help text'}
+TEST_ARGV_RESULT = {'test': True, 'argv': 'result'}
 
 
 class TestPconf(TestCase):
@@ -103,3 +106,36 @@ class TestPconf(TestCase):
     def test_overrides_get(self):
         Pconf.defaults(TEST_OVERRIDES)
         self.assertEqual(Pconf.get(), TEST_OVERRIDES)
+
+    @patch('pconf.store.argv.Argv', new=MagicMock(), spec=Argv)
+    def test_argv(self):
+        arg_name = TEST_ARGV['name']
+        Pconf.argv(arg_name)
+
+        pconf.store.argv.Argv.assert_called_once_with(arg_name, None, None, None)
+        self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
+
+    @patch('pconf.store.argv.Argv', new=MagicMock(), spec=Argv)
+    def test_argv_type_optional(self):
+        arg_name = TEST_ARGV['name']
+        arg_short_name = TEST_ARGV['short_name']
+        arg_type = TEST_ARGV['type']
+        arg_help = TEST_ARGV['help']
+        Pconf.argv(arg_name, arg_short_name, arg_type, arg_help)
+
+        pconf.store.argv.Argv.assert_called_once_with(arg_name, arg_short_name, arg_type, arg_help)
+        self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
+
+    @patch('pconf.store.argv.Argv')
+    def test_argv_get(self, mock_argv):
+        mocked_argv = MagicMock()
+        mocked_argv.get.return_value = TEST_ARGV_RESULT
+        mock_argv.return_value = mocked_argv
+
+        arg_name = TEST_ARGV['name']
+        Pconf.argv(arg_name)
+        results = Pconf.get()
+
+        for key in TEST_ARGV_RESULT.iterkeys():
+            self.assertTrue(key in results)
+            self.assertEqual(results[key], TEST_ARGV_RESULT[key])

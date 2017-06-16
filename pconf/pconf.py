@@ -1,3 +1,4 @@
+import store.argv
 import store.env
 import store.file
 import store.memory
@@ -59,8 +60,18 @@ class Pconf(object):
         cls.__hierarchy.append(store.memory.Memory(data))
 
     @classmethod
-    def argv(cls):
-        raise NotImplementedError
+    def argv(cls, name, short_name=None, type=None, help=None):
+        """ Set command line arguments as a source
+
+        Parses the command line arguments described by the parameters.
+
+        Args:
+            name: the long name of the argument (foo)
+            short_name: the optional short name of the argument (f)
+            type: the optional type of the argument, defaults to bool
+            help: the optional help text for the argument
+        """
+        cls.__hierarchy.append(store.argv.Argv(name, short_name, type, help))
 
     @classmethod
     def env(cls, separator=None, match=None, whitelist=None):

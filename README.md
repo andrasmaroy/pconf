@@ -67,13 +67,23 @@ Pconf.defaults({'key': 'default_value'})
 Very simple, as the name suggests these are to allow the user to set defaults and override whatever value.
 
 ### Argv
-**Not yet implemented**
-Responsible for loading values parsed from command line arguments passed to the process.
+Responsible for loading values parsed from command line arguments passed to the process. Parameters passed to the process, but not described to be parsed as below are ignored.
 
-Argv is expecting a parameters which are then passed to [argparse](https://docs.python.org/2/howto/argparse.html), see the documentation of the [add_argument()](https://docs.python.org/2/library/argparse.html#argparse.ArgumentParser.add_argument) for details.
+Parsed arguments can be defined with the following parameters:
+* `name`: the long name of the argument
+* `short_name`: the *optional* short name of the argument (f)
+* `type`: the *optional* type of the argument (str)
+* `help`: the *optional* help text for the argument
+
 ``` python
-Pconf.argv("-v", "--verbose", action="store_true")
-Pconf.argv("-q", "--quiet", action="store_true")
+Pconf.argv('--test_argument')
+Pconf.argv('--privileged', type=bool)
+Pconf.argv('--threads', short_name='-c', type=int)
+Pconf.argv('--verbose', short_name='-v', type=bool, help='Run in verbose mode')
+```
+These could be used like:
+``` bash
+python example.py --test_argument=hello_world -v --threads 4
 ```
 
 ### Env
