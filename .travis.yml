@@ -9,3 +9,11 @@ install:
 script: py.test --cov=./pconf/ ./tests/
 # submit coverage
 after_success: codecov
+deploy:
+  provider: pypi
+  user: andrasmaroy
+  password:
+    secure: Io9puQ3hAvwMvhf6QtPIW0ow1/89kYK8AJBQuUt0zCZViD2xoi1bFo5GakHd7VngR2+dvmYrkFJCwIWaS0JqqUpAnkqWXsexy3GX0qepMc+N6YkbiWm/5kXKgIYY09bxk2xAWcp7zoVjwhx2ylHDTa5vrUSWqHIsVq/M7mFeV90lVQEQHW96B6n8IJdA5vR1mY16RUvLcjXGMCsH3fyOIRaa1jy9w6ndyVEUaxtJkS3xTXjNwpjS3N4gyNWvr7EIv9j4yLsiCw3RhduN8lMMhIlqf20XID+xrl73MyqichvWrU7aWVo5rZS7JfUFKeIPi6LkyzAx7c1Qi3zInHdilrhwZJQUzxJMmMUn7U2PRf7sK8aSHJTLNHBzchYWf9S26nops84glFAUjyOSxk9JbGpVHTKvG/xt+HVonuCMVJOhLWaeZrVu3YENl77YlTQi31hAb1Sf2XZs2QzDfE6vUNoelPbtM34T4RriyLtFIlI2ERDyLZDpmQbyrIjjqpBqxPKY+2FmEcAvv5I18ieo0cIgOwjtMbZLXD5itc5k5zHDvonbeZy0bHC3QzK2ZobJGWwDQX/nqUlNMJptfl7Fr9IFD0DXQC7bKHHEY5mHLXUrhsOaJpXr2EmoxyvA8LD6qYzqRPhYKbbrYKBs0mif62aWbFD+YVlzsrBDvNiUri8=
+  on:
+    tags: true
+    repo: andrasmaroy/pconf
