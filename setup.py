@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name="pconf",
-    version="0.4.0",
+    version="0.5.0",
     author="Andras Maroy",
     author_email="andras@maroy.hu",
     description=("Hierarchical python configuration with files, environment variables, command-line arguments."),
@@ -29,6 +29,7 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
     ],
+    install_requires=['pyyaml'],
     extras_require={
         'test': ['pytest', 'mock'],
     },

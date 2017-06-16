@@ -1,12 +1,14 @@
 from ast import literal_eval
 import json
+import yaml
 
 
 # TODO: add docstring
 class File():
     ENCODINGS = {
         'json': json.loads,
-        'raw': literal_eval
+        'raw': literal_eval,
+        'yaml': yaml.load
     }
 
     def __init__(self, path, encoding='raw', parser=None):

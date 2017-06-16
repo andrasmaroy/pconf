@@ -100,7 +100,7 @@ class Pconf(object):
         Args:
             path: The path to the file to be parsed
             encoding: The encoding of the file.
-                Defaults to 'raw'. Available built-in values: 'json'.
+                Defaults to 'raw'. Available built-in values: 'json', 'yaml'.
                 Custom value can be used in conjunction with parser.
             parser: A parser function for a custom encoder.
                 It is expected to return a dict containing the parsed values

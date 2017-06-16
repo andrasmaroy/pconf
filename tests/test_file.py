@@ -8,6 +8,7 @@ TEST_FILE_PATH = 'test'
 TEST_FILE_DICT = {'file': 'result'}
 TEST_FILE_RAW = '{"file": "result"}'
 TEST_FILE_JSON = '{"file": "result"}'
+TEST_FILE_YAML = "---\n  file: result\n"
 
 
 def throw_ioerror(*args, **kwargs):
@@ -73,6 +74,14 @@ class TestFile(TestCase):
     @patch('__builtin__.open', mock_open(read_data=TEST_FILE_JSON))
     def test_get_json(self):
         file_store = File(TEST_FILE_PATH, encoding='json')
+        result = file_store.get()
+
+        self.assertEqual(result, TEST_FILE_DICT)
+        self.assertIsInstance(result, dict)
+
+    @patch('__builtin__.open', mock_open(read_data=TEST_FILE_YAML))
+    def test_get_yaml(self):
+        file_store = File(TEST_FILE_PATH, encoding='yaml')
         result = file_store.get()
 
         self.assertEqual(result, TEST_FILE_DICT)

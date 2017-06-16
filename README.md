@@ -136,6 +136,17 @@ These are the built-in supported encodings, that can be passed as the `encoding`
     """
     Pconf.file('/path/to/config.json', encoding='json')
     ```
+* yaml
+    ``` python
+    """
+    `/path/to/config.yaml` contents:
+    ---
+    example:
+      key: value
+      another: stuff
+    """
+    Pconf.file('/path/to/config.yaml', encoding='yaml')
+    ```
 
 #### Using custom file formats
 To use custom encodings supply a parser along with an encoding that is not built-in. The parser is a function that expects the file contents as its argument and returns a dict containing the parsed contents.
