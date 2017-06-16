@@ -6,6 +6,6 @@ install:
   - python setup.py -q install
   - pip install -r requirements-dev.txt
 # command to run tests
-script: py.test --cov=./pconf/
+script: py.test --cov=./pconf/ ./tests/
 # submit coverage
 after_success: codecov
