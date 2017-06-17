@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name="pconf",
-    version="0.5.2",
+    version="0.6.0",
     author="Andras Maroy",
     author_email="andras@maroy.hu",
     description=("Hierarchical python configuration with files, environment variables, command-line arguments."),
@@ -28,8 +28,10 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6'
     ],
-    install_requires=['pyyaml'],
+    install_requires=['pyyaml', 'six'],
     extras_require={
         'test': ['pytest', 'mock'],
     },

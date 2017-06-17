@@ -27,14 +27,20 @@ class Env(object):
             return True
 
     def __split_vars(self, env_vars):
+        keys_to_delete = []
+        dict_to_add = {}
         for key in env_vars.keys():
             splits = key.split(self.separator)
             splits = list(filter(None, splits))
 
             if len(splits) != 1:
                 split = self.__split_var(splits, env_vars[key])
-                del env_vars[key]
-                self.__merge_split(split, env_vars)
+                keys_to_delete.append(key)
+                self.__merge_split(split, dict_to_add)
+
+        for key in keys_to_delete:
+            del env_vars[key]
+        env_vars.update(dict_to_add)
 
     def __split_var(self, keys, value):
         if len(keys) == 1:

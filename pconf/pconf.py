@@ -1,7 +1,9 @@
-import store.argv
-import store.env
-import store.file
-import store.memory
+from .store import argv
+from .store import env
+from .store import file
+from .store import memory
+
+from six import iteritems
 
 
 class Pconf(object):
@@ -29,7 +31,7 @@ class Pconf(object):
         results = {}
 
         for storeMethod in cls.__hierarchy:
-            for key, value in storeMethod.get().iteritems():
+            for key, value in iteritems(storeMethod.get()):
                 if key not in results:
                     results[key] = value
 
@@ -45,7 +47,7 @@ class Pconf(object):
         Args:
             data: the dict to store
         """
-        cls.__hierarchy.append(store.memory.Memory(data))
+        cls.__hierarchy.append(memory.Memory(data))
 
     @classmethod
     def overrides(cls, data):
@@ -57,7 +59,7 @@ class Pconf(object):
         Args:
             data: the dict to store
         """
-        cls.__hierarchy.append(store.memory.Memory(data))
+        cls.__hierarchy.append(memory.Memory(data))
 
     @classmethod
     def argv(cls, name, short_name=None, type=None, help=None):
@@ -71,7 +73,7 @@ class Pconf(object):
             type: the optional type of the argument, defaults to bool
             help: the optional help text for the argument
         """
-        cls.__hierarchy.append(store.argv.Argv(name, short_name, type, help))
+        cls.__hierarchy.append(argv.Argv(name, short_name, type, help))
 
     @classmethod
     def env(cls, separator=None, match=None, whitelist=None):
@@ -88,7 +90,7 @@ class Pconf(object):
             whitelist: Only use environment variables that are listed in this
                 list.
         """
-        cls.__hierarchy.append(store.env.Env(separator, match, whitelist))
+        cls.__hierarchy.append(env.Env(separator, match, whitelist))
 
     @classmethod
     def file(cls, path, encoding=None, parser=None):
@@ -106,4 +108,4 @@ class Pconf(object):
                 It is expected to return a dict containing the parsed values
                 when called with the contents of the file as an argument.
         """
-        cls.__hierarchy.append(store.file.File(path, encoding, parser))
+        cls.__hierarchy.append(file.File(path, encoding, parser))

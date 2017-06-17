@@ -28,13 +28,13 @@ class TestHierarchy(TestCase):
         results = Pconf.get()
 
         self.assertEqual(results['overlapping'], TEST_ENV_RESULT['overlapping'])
-        for key in TEST_FILE_RESULT.iterkeys():
+        for key in TEST_FILE_RESULT:
             if key == 'overlapping':
                 continue
             self.assertTrue(key in results)
             self.assertEqual(results[key], TEST_FILE_RESULT[key])
 
-        for key in TEST_ENV_RESULT.iterkeys():
+        for key in TEST_ENV_RESULT:
             if key == 'overlapping':
                 continue
             self.assertTrue(key in results)
@@ -56,13 +56,13 @@ class TestHierarchy(TestCase):
         results = Pconf.get()
 
         self.assertEqual(results['overlapping'], TEST_FILE_RESULT['overlapping'])
-        for key in TEST_FILE_RESULT.iterkeys():
+        for key in TEST_FILE_RESULT:
             if key == 'overlapping':
                 continue
             self.assertTrue(key in results)
             self.assertEqual(results[key], TEST_FILE_RESULT[key])
 
-        for key in TEST_ENV_RESULT.iterkeys():
+        for key in TEST_ENV_RESULT:
             if key == 'overlapping':
                 continue
             self.assertTrue(key in results)

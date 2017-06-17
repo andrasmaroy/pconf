@@ -50,7 +50,7 @@ class TestPconf(TestCase):
         results = Pconf.get()
 
         mocked_file.get.assert_called_once()
-        for key in TEST_FILE_RESULT.iterkeys():
+        for key in TEST_FILE_RESULT:
             self.assertTrue(key in results)
             self.assertEqual(results[key], TEST_FILE_RESULT[key])
 
@@ -81,7 +81,7 @@ class TestPconf(TestCase):
         results = Pconf.get()
 
         mocked_env.get.assert_called_once()
-        for key in TEST_ENV_RESULT.iterkeys():
+        for key in TEST_ENV_RESULT:
             self.assertTrue(key in results)
             self.assertEqual(results[key], TEST_ENV_RESULT[key])
 
@@ -136,6 +136,6 @@ class TestPconf(TestCase):
         Pconf.argv(arg_name)
         results = Pconf.get()
 
-        for key in TEST_ARGV_RESULT.iterkeys():
+        for key in TEST_ARGV_RESULT:
             self.assertTrue(key in results)
             self.assertEqual(results[key], TEST_ARGV_RESULT[key])
