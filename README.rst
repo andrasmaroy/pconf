@@ -6,8 +6,6 @@ command-line arguments.
 
 See `GitHub <https://github.com/andrasmaroy/pconf>`__ for detailed documentation.
 
-**License: MIT**
-
 Example
 -------
 
