@@ -4,10 +4,10 @@ import pconf
 from pconf.store.env import Env
 
 
-TEST_ENV_BASE_VARS = {'env__var': 'result', }
+TEST_ENV_BASE_VARS = {'env__var': 'result', 'env__var2': 'second_result', }
 TEST_ENV_MATCHED_VARS = {'matched_var': 'match'}
 TEST_ENV_WHITELIST_VARS = {'whitelisted_var': 'whitelist'}
-TEST_SEPARATED_VARS = {'env': {'var': 'result'}}
+TEST_SEPARATED_VARS = {'env': {'var': 'result', 'var2': 'second_result'}}
 TEST_ENV_VARS = dict(TEST_ENV_WHITELIST_VARS, **TEST_ENV_MATCHED_VARS)
 TEST_SEPARATED_VARS = dict(TEST_SEPARATED_VARS, **TEST_ENV_VARS)
 TEST_ENV_VARS = dict(TEST_ENV_VARS, **TEST_ENV_BASE_VARS)

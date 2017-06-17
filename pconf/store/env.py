@@ -29,12 +29,12 @@ class Env(object):
     def __split_vars(self, env_vars):
         for key in env_vars.keys():
             splits = key.split(self.separator)
-            splits = filter(None, splits)
+            splits = list(filter(None, splits))
 
             if len(splits) != 1:
                 split = self.__split_var(splits, env_vars[key])
                 del env_vars[key]
-                env_vars[split.keys()[0]] = split.values()[0]
+                self.__merge_split(split, env_vars)
 
     def __split_var(self, keys, value):
         if len(keys) == 1:
@@ -43,6 +43,17 @@ class Env(object):
             key = keys[0]
             del keys[0]
             return {key: self.__split_var(keys, value)}
+
+    def __merge_split(self, split, env_vars):
+        key = list(split.keys())[0]
+        value = list(split.values())[0]
+        if key not in env_vars:
+            env_vars[key] = value
+            return
+        elif type(value) == dict:
+            self.__merge_split(value, env_vars[key])
+        else:
+            return
 
     def __gather_vars(self):
         self.vars = {}
