@@ -48,7 +48,7 @@ The output should be something like this:
 ```
 
 ## Hierarchical configuration
-Pconf is designed to be used with multiple sources of configuration values with the user being able define the priority of each of these as a hierarchy. The supported sources described below can be setup in any order without any hardcoded defaults. Priority meaning if a configuration key appears in multiple sources the value from the sources higher up in the hierarchy takes precedence. The order in which the sources are attached defines the priority in the hierarchy.
+Pconf is designed to be used with multiple sources of configuration values with the user being able define the priority of each of these as a hierarchy. The supported sources described below can be setup in any order without any hardcoded defaults. Priority meaning if a configuration key appears in multiple sources the value from the sources higher up in the hierarchy takes precedence. The order in which the sources are attached defines the priority in the hierarchy, source attached first take precedence.
 
 The available sources (more details about the below) in a sensible order:
 1. **overrides** - Loads data passed to it
