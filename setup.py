@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name="pconf",
-    version="0.7.0",
+    version="1.0.0",
     author="Andras Maroy",
     author_email="andras@maroy.hu",
     description=("Hierarchical python configuration with files, environment variables, command-line arguments."),
@@ -20,9 +20,9 @@ setup(
     keywords="configuration hierarchical",
     url="https://github.com/andrasmaroy/pconf",
     packages=['pconf', 'pconf.store'],
-    long_description=read('README.md'),
+    long_description=read('README.rst'),
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: MIT License',
