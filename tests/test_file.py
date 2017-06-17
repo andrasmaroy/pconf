@@ -9,6 +9,11 @@ TEST_FILE_DICT = {'file': 'result'}
 TEST_FILE_RAW = '{"file": "result"}'
 TEST_FILE_JSON = '{"file": "result"}'
 TEST_FILE_YAML = "---\n  file: result\n"
+TEST_FILE_INI = """[DEFAULT]
+file=result"""
+TEST_FILE_INI_WITH_SECTION = """[test]
+file=result"""
+TEST_FILE_INI_WITH_SECTION_DICT = {'test': {'file': 'result'}}
 if (version_info.major < 3):
     import __builtin__
     MOCK_OPEN_FUNCTION = '__builtin__.open'
@@ -94,4 +99,20 @@ class TestFile(TestCase):
         result = file_store.get()
 
         self.assertEqual(result, TEST_FILE_DICT)
+        self.assertIsInstance(result, dict)
+
+    @patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_INI))
+    def test_get_ini(self):
+        file_store = File(TEST_FILE_PATH, encoding='ini')
+        result = file_store.get()
+
+        self.assertEqual(result, TEST_FILE_DICT)
+        self.assertIsInstance(result, dict)
+
+    @patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_INI_WITH_SECTION))
+    def test_get_ini_with_section(self):
+        file_store = File(TEST_FILE_PATH, encoding='ini')
+        result = file_store.get()
+
+        self.assertEqual(result, TEST_FILE_INI_WITH_SECTION_DICT)
         self.assertIsInstance(result, dict)

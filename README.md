@@ -126,7 +126,18 @@ Pconf.file('/path/to/literal')
 ```
 
 #### Built-in encodings:
-These are the built-in supported encodings, that can be passed as the `encoding` parameter to the function.
+These are the built-in supported encodings, that can be passed as the `encoding` parameter to the function. All the example files below result in the same data structure after parsing.
+* ini
+    ``` python
+    """
+    `/path/to/config.ini` contents:
+    [example]
+    key: value
+    another=stuff
+    """
+    Pconf.file('/path/to/config.ini', encoding='ini')
+    ```
+    Ini files have to have sections, though the special `DEFAULT` section won't be included as a section header only its contents.
 * json
     ``` python
     """
