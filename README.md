@@ -1,7 +1,10 @@
 # pconf
 
-[![Build Status](https://api.travis-ci.org/andrasmaroy/pconf.svg?branch=master)](https://travis-ci.org/andrasmaroy/pconf)
-[![Code Coverage](https://codecov.io/gh/andrasmaroy/pconf/branch/master/graph/badge.svg)](https://codecov.io/gh/andrasmaroy/pconf)
+[![Build Status](https://img.shields.io/travis/andrasmaroy/pconf.svg?style=flat)](https://travis-ci.org/andrasmaroy/pconf)
+[![Code Coverage](https://img.shields.io/codecov/c/github/andrasmaroy/pconf.svg?style=flat)](https://codecov.io/gh/andrasmaroy/pconf)
+[![PyPi Version](https://img.shields.io/pypi/v/pconf.svg?style=flat)](https://pypi.python.org/pypi/pconf)
+[![License](https://img.shields.io/pypi/l/pconf.svg?style=flat)](https://pypi.python.org/pypi/pconf)
+[![Py Versions](https://img.shields.io/pypi/pyversions/pconf.svg?style=flat)](https://pypi.python.org/pypi/pconf)
 
 Hierarchical python configuration with files, environment variables, command-line arguments. Inspired by [nconf](https://github.com/indexzero/nconf).
 
