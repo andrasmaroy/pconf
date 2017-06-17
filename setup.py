@@ -12,14 +12,14 @@ def read(fname):
 
 setup(
     name="pconf",
-    version="0.5.0",
+    version="0.5.1",
     author="Andras Maroy",
     author_email="andras@maroy.hu",
     description=("Hierarchical python configuration with files, environment variables, command-line arguments."),
     license="MIT",
     keywords="configuration hierarchical",
     url="https://github.com/andrasmaroy/pconf",
-    packages=['pconf', 'tests'],
+    packages=['pconf', 'pconf.store'],
     long_description=read('README.md'),
     classifiers=[
         'Development Status :: 4 - Beta',
