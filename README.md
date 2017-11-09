@@ -107,10 +107,14 @@ Pconf.env(whitelist=['only', 'load', 'variables', 'listed', 'here'])
 # Keys matched by this expression are considered whitelisted
 Pconf.env(match='^REGEX.*')
 
+# The contents of the variables can be parsed as well-known types, in case parsing fails the variable remains as a string
+Pconf.env(parse_values=True)
+
 # Use all at once
 Pconf.env(separator='__',
           match='whatever_matches_this_will_be_whitelisted',
-          whitelist=['whatever', 'doesnt', 'match', 'but', 'is', 'whitelisted', 'gets', 'loaded', 'too'])
+          whitelist=['whatever', 'doesnt', 'match', 'but', 'is', 'whitelisted', 'gets', 'loaded', 'too'],
+          parse_values=True)
 ```
 
 ### File

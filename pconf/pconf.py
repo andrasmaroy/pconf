@@ -76,7 +76,7 @@ class Pconf(object):
         cls.__hierarchy.append(argv.Argv(name, short_name, type, help))
 
     @classmethod
-    def env(cls, separator=None, match=None, whitelist=None):
+    def env(cls, separator=None, match=None, whitelist=None, parse_values=None):
         """Set environment variables as a source.
 
         By default all environment variables available to the process are used.
@@ -90,7 +90,7 @@ class Pconf(object):
             whitelist: Only use environment variables that are listed in this
                 list.
         """
-        cls.__hierarchy.append(env.Env(separator, match, whitelist))
+        cls.__hierarchy.append(env.Env(separator, match, whitelist, parse_values))
 
     @classmethod
     def file(cls, path, encoding=None, parser=None):

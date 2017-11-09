@@ -1,12 +1,15 @@
 import os
 import re
+from six import iteritems
+from ast import literal_eval
 
 
 class Env(object):
-    def __init__(self, separator=None, match=None, whitelist=None):
+    def __init__(self, separator=None, match=None, whitelist=None, parse_values=False):
         self.separator = separator
         self.match = match
         self.whitelist = whitelist
+        self.parse_values = parse_values
 
         if self.match is not None:
             self.re = re.compile(self.match)
@@ -61,6 +64,18 @@ class Env(object):
         else:
             return
 
+    def __try_parse(self, env_vars):
+        for key, value in iteritems(env_vars):
+            try:
+                if value.lower() == 'true':
+                    env_vars[key] = True
+                elif value.lower() == 'false':
+                    env_vars[key] = False
+                else:
+                    env_vars[key] = literal_eval(value)
+            except (ValueError, SyntaxError):
+                pass
+
     def __gather_vars(self):
         self.vars = {}
         env_vars = os.environ
@@ -71,3 +86,6 @@ class Env(object):
 
         if self.separator is not None:
             self.__split_vars(self.vars)
+
+        if self.parse_values:
+            self.__try_parse(self.vars)
