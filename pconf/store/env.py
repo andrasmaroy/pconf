@@ -5,12 +5,13 @@ from ast import literal_eval
 
 
 class Env(object):
-    def __init__(self, separator=None, match=None, whitelist=None, parse_values=False, to_lower=False):
+    def __init__(self, separator=None, match=None, whitelist=None, parse_values=False, to_lower=False, convert_underscores=False):
         self.separator = separator
         self.match = match
         self.whitelist = whitelist
         self.parse_values = parse_values
         self.to_lower = to_lower
+        self.convert_underscores = convert_underscores
 
         if self.match is not None:
             self.re = re.compile(self.match)
@@ -19,6 +20,9 @@ class Env(object):
 
         if self.to_lower:
             self.__to_lower()
+
+        if self.convert_underscores:
+            self.vars = self.__convert_underscores(self.vars)
 
     def get(self):
         return self.vars
@@ -99,3 +103,13 @@ class Env(object):
         for key in self.vars.keys():
             lower_case_dict[key.lower()] = self.vars[key]
         self.vars = lower_case_dict
+
+    def __convert_underscores(self, env_vars):
+        converted_dict = {}
+        for key, value in iteritems(env_vars):
+            if type(value) == dict:
+                converted_dict[key.replace('_', '-')] = self.__convert_underscores(value)
+            else:
+                converted_dict[key.replace('_', '-')] = env_vars[key]
+        return converted_dict
+

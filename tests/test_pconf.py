@@ -58,7 +58,7 @@ class TestPconf(TestCase):
     def test_env(self):
         Pconf.env()
 
-        pconf.store.env.Env.assert_called_once_with(None, None, None, None, None)
+        pconf.store.env.Env.assert_called_once_with(None, None, None, None, None, None)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch('pconf.store.env.Env', new=MagicMock(), spec=Env)
@@ -68,9 +68,10 @@ class TestPconf(TestCase):
         whitelist = 'whitelist'
         parse_values = True
         to_lower = True
-        Pconf.env(separator, match, whitelist, parse_values, to_lower)
+        convert_underscores = True
+        Pconf.env(separator, match, whitelist, parse_values, to_lower, convert_underscores)
 
-        pconf.store.env.Env.assert_called_once_with(separator, match, whitelist, parse_values, to_lower)
+        pconf.store.env.Env.assert_called_once_with(separator, match, whitelist, parse_values, to_lower, convert_underscores)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch('pconf.store.env.Env')

@@ -113,12 +113,16 @@ Pconf.env(parse_values=True)
 # The variable names can be converted to lowercase to match other variable names.
 Pconf.env(to_lower=True)
 
+# Convert all underscores in the name to dashes, this takes place after separation via the separator option.
+Pconf.env(convert_underscors=True)
+
 # Use all at once
 Pconf.env(separator='__',
           match='whatever_matches_this_will_be_whitelisted',
           whitelist=['whatever', 'doesnt', 'match', 'but', 'is', 'whitelisted', 'gets', 'loaded', 'too'],
           parse_values=True,
-          to_lower=True)
+          to_lower=True,
+          convert_underscores=True)
 ```
 
 ### File

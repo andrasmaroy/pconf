@@ -76,7 +76,7 @@ class Pconf(object):
         cls.__hierarchy.append(argv.Argv(name, short_name, type, help))
 
     @classmethod
-    def env(cls, separator=None, match=None, whitelist=None, parse_values=None, to_lower=None):
+    def env(cls, separator=None, match=None, whitelist=None, parse_values=None, to_lower=None, convert_underscores=None):
         """Set environment variables as a source.
 
         By default all environment variables available to the process are used.
@@ -91,8 +91,10 @@ class Pconf(object):
                 list.
             parse_values: Try to parse all variable for well-known types.
             to_lower: Convert all variable names to lower case.
+            convert_underscores: Convert all underscores in the name to dashes,
+                this takes place after separation via the separator option.
         """
-        cls.__hierarchy.append(env.Env(separator, match, whitelist, parse_values, to_lower))
+        cls.__hierarchy.append(env.Env(separator, match, whitelist, parse_values, to_lower, convert_underscores))
 
     @classmethod
     def file(cls, path, encoding=None, parser=None):
