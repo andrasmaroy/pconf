@@ -110,11 +110,15 @@ Pconf.env(match='^REGEX.*')
 # The contents of the variables can be parsed as well-known types, in case parsing fails the variable remains as a string
 Pconf.env(parse_values=True)
 
+# The variable names can be converted to lowercase to match other variable names.
+Pconf.env(to_lower=True)
+
 # Use all at once
 Pconf.env(separator='__',
           match='whatever_matches_this_will_be_whitelisted',
           whitelist=['whatever', 'doesnt', 'match', 'but', 'is', 'whitelisted', 'gets', 'loaded', 'too'],
-          parse_values=True)
+          parse_values=True,
+          to_lower=True)
 ```
 
 ### File

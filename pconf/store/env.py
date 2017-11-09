@@ -5,16 +5,20 @@ from ast import literal_eval
 
 
 class Env(object):
-    def __init__(self, separator=None, match=None, whitelist=None, parse_values=False):
+    def __init__(self, separator=None, match=None, whitelist=None, parse_values=False, to_lower=False):
         self.separator = separator
         self.match = match
         self.whitelist = whitelist
         self.parse_values = parse_values
+        self.to_lower = to_lower
 
         if self.match is not None:
             self.re = re.compile(self.match)
 
         self.__gather_vars()
+
+        if self.to_lower:
+            self.__to_lower()
 
     def get(self):
         return self.vars
@@ -89,3 +93,7 @@ class Env(object):
 
         if self.parse_values:
             self.__try_parse(self.vars)
+
+    def __to_lower(self):
+        for key in self.vars.keys():
+            self.vars[key.lower()] = self.vars.pop(key)
