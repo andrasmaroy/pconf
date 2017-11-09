@@ -150,6 +150,7 @@ These are the built-in supported encodings, that can be passed as the `encoding`
     Pconf.file('/path/to/config.ini', encoding='ini')
     ```
     Ini files have to have sections, though the special `DEFAULT` section won't be included as a section header only its contents.
+    Also ini files are quite restrictive, only basic types are supported, and most are parsed as strings. If support for more complex types is required AND it has to come from ini files, then look at custom file formats below.
 * json
     ``` python
     """
@@ -197,6 +198,7 @@ print config['key']
 Test are written using the standard python unittest framework.
 First install the dev requirements:
 ```bash
+python setup.py -q install
 pip install -r requirements-dev.txt
 ```
 Run the tests from the repository root like so:
