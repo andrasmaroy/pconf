@@ -89,6 +89,7 @@ class Pconf(object):
                 expression are considered whitelisted.
             whitelist: Only use environment variables that are listed in this
                 list.
+            parse_values: Try to parse all variable for well-known types.
         """
         cls.__hierarchy.append(env.Env(separator, match, whitelist, parse_values))
 
