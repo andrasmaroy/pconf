@@ -1,4 +1,5 @@
 from ast import literal_eval
+from six import iteritems
 import json
 import yaml
 
@@ -34,6 +35,7 @@ class File():
         self.__read_file(path)
         self.__set_encoding(encoding, parser)
         self.__parse_content()
+        self.__clear_empty_values()
 
     def get(self):
         return self.content
@@ -56,3 +58,11 @@ class File():
             self.content = self.parser(self.content)
         except:
             self.content = {}
+
+    def __clear_empty_values(self):
+        keys_to_clear = []
+        for key, value in iteritems(self.content):
+            if value is None:
+                keys_to_clear.append(key)
+        for key in keys_to_clear:
+            self.content.pop(key, None)
