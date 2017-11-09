@@ -95,5 +95,7 @@ class Env(object):
             self.__try_parse(self.vars)
 
     def __to_lower(self):
+        lower_case_dict = {}
         for key in self.vars.keys():
-            self.vars[key.lower()] = self.vars.pop(key)
+            lower_case_dict[key.lower()] = self.vars[key]
+        self.vars = lower_case_dict
