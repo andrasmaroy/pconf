@@ -19,10 +19,10 @@ class Env(object):
         self.__gather_vars()
 
         if self.to_lower:
-            self.__to_lower()
+            self.vars = self.__change_keys(self.vars, self.__to_lower)
 
         if self.convert_underscores:
-            self.vars = self.__convert_underscores(self.vars)
+            self.vars = self.__change_keys(self.vars, self.__convert_underscores)
 
     def get(self):
         return self.vars
@@ -98,18 +98,18 @@ class Env(object):
         if self.parse_values:
             self.__try_parse(self.vars)
 
-    def __to_lower(self):
-        lower_case_dict = {}
-        for key in self.vars.keys():
-            lower_case_dict[key.lower()] = self.vars[key]
-        self.vars = lower_case_dict
+    def __to_lower(self, key):
+        return key.lower()
 
-    def __convert_underscores(self, env_vars):
-        converted_dict = {}
+    def __convert_underscores(self, key):
+        return key.replace('_', '-')
+
+    def __change_keys(self, env_vars, operation):
+        new_dict = {}
         for key, value in iteritems(env_vars):
             if type(value) == dict:
-                converted_dict[key.replace('_', '-')] = self.__convert_underscores(value)
+                new_dict[operation(key)] = self.__change_keys(value, operation)
             else:
-                converted_dict[key.replace('_', '-')] = env_vars[key]
-        return converted_dict
+                new_dict[operation(key)] = env_vars[key]
+        return new_dict
 

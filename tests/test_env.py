@@ -110,16 +110,26 @@ class TestEnv(TestCase):
     @patch('pconf.store.env.os', new=MagicMock())
     def test_parse_values(self):
         pconf.store.env.os.environ = TEST_ENV_TYPED_VARS
-        env_store = Env(parse_values=True)
+        env_store = Env(parse_values=TEST_TO_LOWER)
         result = env_store.get()
         self.assertEqual(result, TEST_ENV_TYPED_VARS_PARSED)
+        self.assertIsInstance(result, dict)
 
     @patch('pconf.store.env.os', new=MagicMock())
     def test_lowercase_conversion(self):
         pconf.store.env.os.environ = TEST_ENV_UPPERCASE
-        env_store = Env(to_lower=True)
+        env_store = Env(to_lower=TEST_TO_LOWER)
         result = env_store.get()
         self.assertEqual(result, TEST_ENV_VARS)
+        self.assertIsInstance(result, dict)
+
+    @patch('pconf.store.env.os', new=MagicMock())
+    def test_lowercase_and_separator(self):
+        pconf.store.env.os.environ = TEST_ENV_UPPERCASE
+        env_store = Env(separator=TEST_SEPARATOR, to_lower=TEST_TO_LOWER)
+        result = env_store.get()
+        self.assertEqual(result, TEST_SEPARATED_VARS)
+        self.assertIsInstance(result, dict)
 
     @patch('pconf.store.env.os', new=MagicMock())
     def test_convert_underscore_replacement(self):
