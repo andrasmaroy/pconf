@@ -98,6 +98,10 @@ class TestArgv(TestCase):
 
         for arg in TEST_LITERAL_ARGV:
             mock_parser.parse_known_args.return_value = (Namespace(**arg), [])
-            Argv(arg.keys()[0], type=type(arg.values()[0]))
-            mock_parser.add_argument.assert_called_once_with(arg.keys()[0], help=None, default=SUPPRESS, type=pconf.store.argv.literal_eval)
+            Argv(list(arg.keys())[0], type=type(list(arg.values())[0]))
+            mock_parser.add_argument.assert_called_once_with(
+                    list(arg.keys())[0],
+                    help=None,
+                    default=SUPPRESS,
+                    type=pconf.store.argv.literal_eval)
             mock_parser.reset_mock()
