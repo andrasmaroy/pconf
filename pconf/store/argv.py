@@ -1,4 +1,5 @@
 import argparse
+from ast import literal_eval
 
 
 class Argv(object):
@@ -14,6 +15,9 @@ class Argv(object):
         args['help'] = help
         if type == bool:
             args['action'] = 'store_true'
+        # types supported by literal_eval
+        elif type in [dict, frozenset, list, set, tuple]:
+            args['type'] = literal_eval
         else:
             args['type'] = type
 
