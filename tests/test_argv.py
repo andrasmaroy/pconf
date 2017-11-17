@@ -91,3 +91,13 @@ class TestArgv(TestCase):
         result = argv_store.get()
 
         self.assertEqual(result, {str(TEST_LITERAL_LIST['name']).replace('--', ''): TEST_LITERAL_LIST['result']})
+
+    def test_repeated_list(self):
+        for value in TEST_LITERAL_LIST['result']:
+            sys.argv.append(TEST_LITERAL_LIST['name'])
+            sys.argv.append(value)
+
+        argv_store = Argv(TEST_LITERAL_LIST['name'], type='repeated_list')
+        result = argv_store.get()
+
+        self.assertEqual(result, {str(TEST_LITERAL_LIST['name']).replace('--', ''): TEST_LITERAL_LIST['result']})

@@ -75,8 +75,8 @@ Responsible for loading values parsed from command line arguments passed to the 
 
 Parsed arguments can be defined with the following parameters:
 * `name`: the long name of the argument
-* `short_name`: the *optional* short name of the argument (f)
-* `type`: the *optional* type of the argument (str)
+* `short_name`: the *optional* short name of the argument
+* `type`: the *optional* type of the argument
 * `help`: the *optional* help text for the argument
 
 ``` python
@@ -88,6 +88,24 @@ Pconf.argv('--verbose', short_name='-v', type=bool, help='Run in verbose mode')
 These could be used like:
 ``` bash
 python example.py --test_argument=hello_world -v --threads 4
+```
+#### Lists as arguments
+Lists can be passed in two ways as arguments
+* literal list
+```python
+Pconf.argv('--list', type=list)
+```
+```bash
+python example.py --list="['item1', 'item2']"
+{'list': ['item1', 'item2']}
+```
+* repeated arguments:
+```python
+Pconf.argv('--list', type='repeated_list')
+```
+```bash
+python example.py --list=item1 --list=item2
+{'list': ['item1', 'item2']}
 ```
 
 ### Env

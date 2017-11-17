@@ -16,8 +16,10 @@ class Argv(object):
         if type == bool:
             args['action'] = 'store_true'
         # types supported by literal_eval
-        elif type in [dict, frozenset, list, set, tuple]:
+        elif type in [dict, list, tuple]:
             args['type'] = literal_eval
+        elif type == 'repeated_list':
+            args['action'] = 'append'
         else:
             args['type'] = type
 

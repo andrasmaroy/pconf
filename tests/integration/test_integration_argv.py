@@ -38,5 +38,4 @@ class TestIntegrationArgv(IntegrationBase):
         Pconf.argv(name="--tuple", type=tuple)
 
         config = Pconf.get()
-        # self.assertEqual(None, Pconf._Pconf__hierarchy[0])
         self.assertEqual(config, IntegrationBase.result)
