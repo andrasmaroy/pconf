@@ -16,12 +16,11 @@ TEST_LITERAL_ARGV = [
 
 
 class TestArgv(TestCase):
+    @patch('pconf.store.argv.Argv.parser')
     @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_args_default_params(self):
-        mock_parser = MagicMock()
+    def test_args_default_params(self, mock_parser):
         mock_parser.parse_known_args.return_value = (TEST_ARGV_NAMESPACE, [])
         pconf.store.argv.argparse.SUPPRESS = SUPPRESS
-        pconf.store.argv.Argv.parser = mock_parser
 
         arg_name = TEST_ARGV['name']
         argv_store = Argv(arg_name)
@@ -33,12 +32,11 @@ class TestArgv(TestCase):
         self.assertEqual(result, TEST_ARGV_RESULT)
         self.assertIsInstance(result, dict)
 
+    @patch('pconf.store.argv.Argv.parser')
     @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_args_optional_params(self):
-        mock_parser = MagicMock()
+    def test_args_optional_params(self, mock_parser):
         mock_parser.parse_known_args.return_value = (TEST_ARGV_NAMESPACE, [])
         pconf.store.argv.argparse.SUPPRESS = SUPPRESS
-        pconf.store.argv.Argv.parser = mock_parser
 
         arg_name = TEST_ARGV['name']
         arg_short_name = TEST_ARGV['short_name']
@@ -53,12 +51,11 @@ class TestArgv(TestCase):
         self.assertEqual(result, TEST_ARGV_RESULT)
         self.assertIsInstance(result, dict)
 
+    @patch('pconf.store.argv.Argv.parser')
     @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_args_optional_params_without_short(self):
-        mock_parser = MagicMock()
+    def test_args_optional_params_without_short(self, mock_parser):
         mock_parser.parse_known_args.return_value = (TEST_ARGV_NAMESPACE, [])
         pconf.store.argv.argparse.SUPPRESS = SUPPRESS
-        pconf.store.argv.Argv.parser = mock_parser
 
         arg_name = TEST_ARGV['name']
         arg_type = TEST_ARGV['type']
@@ -72,12 +69,11 @@ class TestArgv(TestCase):
         self.assertEqual(result, TEST_ARGV_RESULT)
         self.assertIsInstance(result, dict)
 
+    @patch('pconf.store.argv.Argv.parser')
     @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_bool_arg(self):
-        mock_parser = MagicMock()
+    def test_bool_arg(self, mock_parser):
         mock_parser.parse_known_args.return_value = (TEST_ARGV_NAMESPACE, [])
         pconf.store.argv.argparse.SUPPRESS = SUPPRESS
-        pconf.store.argv.Argv.parser = mock_parser
 
         arg_name = TEST_ARGV['name']
         arg_type = bool
@@ -90,11 +86,10 @@ class TestArgv(TestCase):
         self.assertEqual(result, TEST_ARGV_RESULT)
         self.assertIsInstance(result, dict)
 
+    @patch('pconf.store.argv.Argv.parser')
     @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_literal_arg(self):
-        mock_parser = MagicMock()
+    def test_literal_arg(self, mock_parser):
         pconf.store.argv.argparse.SUPPRESS = SUPPRESS
-        pconf.store.argv.Argv.parser = mock_parser
 
         for arg in TEST_LITERAL_ARGV:
             mock_parser.parse_known_args.return_value = (Namespace(**arg), [])

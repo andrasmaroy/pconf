@@ -112,7 +112,7 @@ class TestFile(TestCase):
 
     @patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_YAML_NONE))
     def test_get_yaml_empty(self):
-        file_store = File(TEST_FILE_PATH, encoding='json')
+        file_store = File(TEST_FILE_PATH, encoding='yaml')
         result = file_store.get()
 
         self.assertEqual(result, {})
