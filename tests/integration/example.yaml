@@ -3,9 +3,9 @@ bool: true
 boolstring: 'false'
 dict:
   dict: value
-  list_in_dict:
-  - nested_list1
-  - nested_list2
+  list-in-dict:
+  - nested-list1
+  - nested-list2
 complex: !!python/complex 1+2j
 float: 1.23
 int: 123
@@ -13,6 +13,6 @@ key: value
 list:
 - list1
 - list2
-- dict_in_list: value
-string_with_specials: Test!@#$%^&*()-_=+[]{};:,<.>/?\'"\`~
+- dict-in-list: value
+string-with-specials: Test!@#$%^&*()-_=+[]{};:,<.>/?\'"\`~
 tuple: !!python/tuple [123, string]

@@ -11,11 +11,11 @@ class IntegrationBase(TestCase):
                 'tuple': (123, 'string'),
                 'int': 123,
                 'float': 1.23,
-                'list': ['list1', 'list2', {'dict_in_list': 'value'}],
+                'list': ['list1', 'list2', {'dict-in-list': 'value'}],
                 'complex': (1+2j),
                 'bool': True,
                 'key': 'value',
                 'boolstring': 'false',
-                'string_with_specials': 'Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'"\\`~',
-                'dict': {'dict': 'value', 'list_in_dict': ['nested_list1', 'nested_list2']}
+                'string-with-specials': 'Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'"\\`~',
+                'dict': {'dict': 'value', 'list-in-dict': ['nested-list1', 'nested-list2']}
                 }

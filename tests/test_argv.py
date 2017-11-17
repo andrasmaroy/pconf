@@ -8,6 +8,9 @@ TEST_ARGV_BOOL_RESULT = {'argv': True}
 TEST_LITERAL_DICT = {'name': '--dict', 'value': "{'key': 'value'}", 'result': {'key': 'value'}}
 TEST_LITERAL_LIST = {'name': '--list', 'value': "['list1', 'list2']", 'result': ['list1', 'list2']}
 TEST_LITERAL_TUPLE = {'name': '--tuple', 'value': "('tuple1', 'tuple2')", 'result': ('tuple1', 'tuple2')}
+TEST_INVALID_KEY = "this is an invalid key, because it doesn't start with dashes"
+TEST_DASH_IN_KEY = '--dash-this'
+TEST_DASH_IN_KEY_RESULT = {'dash-this': True}
 
 
 class TestArgv(TestCase):
@@ -101,3 +104,18 @@ class TestArgv(TestCase):
         result = argv_store.get()
 
         self.assertEqual(result, {str(TEST_LITERAL_LIST['name']).replace('--', ''): TEST_LITERAL_LIST['result']})
+
+    def test_invalid_name(self):
+        with self.assertRaises(ValueError):
+            Argv(TEST_INVALID_KEY)
+
+    def test_dash_in_name(self):
+        sys.argv.append(TEST_DASH_IN_KEY)
+
+        arg_name = TEST_DASH_IN_KEY
+        arg_type = bool
+        argv_store = Argv(arg_name, type=arg_type)
+        result = argv_store.get()
+
+        self.assertEqual(result, TEST_DASH_IN_KEY_RESULT)
+        self.assertIsInstance(result, dict)

@@ -6,6 +6,9 @@ class Argv(object):
     parser = None
 
     def __init__(self, name, short_name=None, type=None, help=None):
+        if not name.startswith('-') or name.count(' ') != 0:
+            raise ValueError
+
         if Argv.parser is None:
             Argv.parser = argparse.ArgumentParser()
 
@@ -22,6 +25,9 @@ class Argv(object):
             args['action'] = 'append'
         else:
             args['type'] = type
+
+        if name.lstrip('-').count('-') != 0:
+            args['dest'] = name.lstrip('-')
 
         if short_name is not None:
             Argv.parser.add_argument(name, short_name, default=argparse.SUPPRESS, **args)

@@ -3,9 +3,9 @@
     "boolstring": "false",
     "dict": {
         "dict": "value",
-        "list_in_dict": [
-            "nested_list1",
-            "nested_list2"
+        "list-in-dict": [
+            "nested-list1",
+            "nested-list2"
         ]
     },
     "float": 1.23,
@@ -15,8 +15,8 @@
         "list1",
         "list2",
         {
-            "dict_in_list": "value"
+            "dict-in-list": "value"
         }
     ],
-    "string_with_specials": "Test!@#$%^&*()-_=+[]{};:,<.>/?\\'\"\\`~"
+    "string-with-specials": "Test!@#$%^&*()-_=+[]{};:,<.>/?\\'\"\\`~"
 }
