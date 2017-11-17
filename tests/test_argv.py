@@ -1,42 +1,38 @@
+import sys
 from unittest import TestCase
-from mock import patch, MagicMock
-import pconf
 from pconf.store.argv import Argv
-from argparse import Namespace, SUPPRESS
 
-TEST_ARGV = {'name': 'argv', 'short_name': 'a', 'type': str, 'help': 'help text'}
+TEST_ARGV = {'name': '--argv', 'short_name': '-a', 'type': str, 'help': 'help text'}
 TEST_ARGV_RESULT = {'argv': 'result'}
-TEST_ARGV_NAMESPACE = Namespace(argv='result')
-TEST_LITERAL_ARGV = [
-        {'dict:': {'key': 'value'}},
-        {'list': ['list1', 'list2']},
-        {'set': {'set1', 'set2'}},
-        {'tuple': ('tuple1', 'tuple2')}
-        ]
+TEST_ARGV_BOOL_RESULT = {'argv': True}
+TEST_LITERAL_DICT = {'name': '--dict', 'value': "{'key': 'value'}", 'result': {'key': 'value'}}
+TEST_LITERAL_LIST = {'name': '--list', 'value': "['list1', 'list2']", 'result': ['list1', 'list2']}
+TEST_LITERAL_TUPLE = {'name': '--tuple', 'value': "('tuple1', 'tuple2')", 'result': ('tuple1', 'tuple2')}
 
 
 class TestArgv(TestCase):
-    @patch('pconf.store.argv.Argv.parser')
-    @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_args_default_params(self, mock_parser):
-        mock_parser.parse_known_args.return_value = (TEST_ARGV_NAMESPACE, [])
-        pconf.store.argv.argparse.SUPPRESS = SUPPRESS
+    def setUp(self):
+        sys.argv = [sys.argv[0]]
+        Argv.parser = None
+
+    def tearDown(self):
+        sys.argv = [sys.argv[0]]
+        Argv.parser = None
+
+    def test_args_default_params(self):
+        sys.argv.append(TEST_ARGV['name'])
+        sys.argv.append(TEST_ARGV_RESULT[TEST_ARGV['name'].replace('--', '')])
 
         arg_name = TEST_ARGV['name']
         argv_store = Argv(arg_name)
         result = argv_store.get()
 
-        mock_parser.add_argument.assert_called_once_with(arg_name, type=None, help=None, default=SUPPRESS)
-        mock_parser.parse_known_args.assert_called_once()
-
         self.assertEqual(result, TEST_ARGV_RESULT)
         self.assertIsInstance(result, dict)
 
-    @patch('pconf.store.argv.Argv.parser')
-    @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_args_optional_params(self, mock_parser):
-        mock_parser.parse_known_args.return_value = (TEST_ARGV_NAMESPACE, [])
-        pconf.store.argv.argparse.SUPPRESS = SUPPRESS
+    def test_args_optional_params(self):
+        sys.argv.append(TEST_ARGV['short_name'])
+        sys.argv.append(TEST_ARGV_RESULT[TEST_ARGV['name'].replace('--', '')])
 
         arg_name = TEST_ARGV['name']
         arg_short_name = TEST_ARGV['short_name']
@@ -45,17 +41,12 @@ class TestArgv(TestCase):
         argv_store = Argv(arg_name, arg_short_name, arg_type, arg_help)
         result = argv_store.get()
 
-        mock_parser.add_argument.assert_called_once_with(arg_name, arg_short_name, type=arg_type, help=arg_help, default=SUPPRESS)
-        mock_parser.parse_known_args.assert_called_once()
-
         self.assertEqual(result, TEST_ARGV_RESULT)
         self.assertIsInstance(result, dict)
 
-    @patch('pconf.store.argv.Argv.parser')
-    @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_args_optional_params_without_short(self, mock_parser):
-        mock_parser.parse_known_args.return_value = (TEST_ARGV_NAMESPACE, [])
-        pconf.store.argv.argparse.SUPPRESS = SUPPRESS
+    def test_args_optional_params_without_short(self):
+        sys.argv.append(TEST_ARGV['name'])
+        sys.argv.append(TEST_ARGV_RESULT[TEST_ARGV['name'].replace('--', '')])
 
         arg_name = TEST_ARGV['name']
         arg_type = TEST_ARGV['type']
@@ -63,40 +54,40 @@ class TestArgv(TestCase):
         argv_store = Argv(arg_name, type=arg_type, help=arg_help)
         result = argv_store.get()
 
-        mock_parser.add_argument.assert_called_once_with(arg_name, type=arg_type, help=arg_help, default=SUPPRESS)
-        mock_parser.parse_known_args.assert_called_once()
-
         self.assertEqual(result, TEST_ARGV_RESULT)
         self.assertIsInstance(result, dict)
 
-    @patch('pconf.store.argv.Argv.parser')
-    @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_bool_arg(self, mock_parser):
-        mock_parser.parse_known_args.return_value = (TEST_ARGV_NAMESPACE, [])
-        pconf.store.argv.argparse.SUPPRESS = SUPPRESS
+    def test_bool_arg(self):
+        sys.argv.append(TEST_ARGV['name'])
 
         arg_name = TEST_ARGV['name']
         arg_type = bool
         argv_store = Argv(arg_name, type=arg_type)
         result = argv_store.get()
 
-        mock_parser.add_argument.assert_called_once_with(arg_name, action='store_true', help=None, default=SUPPRESS)
-        mock_parser.parse_known_args.assert_called_once()
-
-        self.assertEqual(result, TEST_ARGV_RESULT)
+        self.assertEqual(result, TEST_ARGV_BOOL_RESULT)
         self.assertIsInstance(result, dict)
 
-    @patch('pconf.store.argv.Argv.parser')
-    @patch('pconf.store.argv.argparse', new=MagicMock())
-    def test_literal_arg(self, mock_parser):
-        pconf.store.argv.argparse.SUPPRESS = SUPPRESS
+    def test_literal_dict(self):
+        sys.argv.append(TEST_LITERAL_DICT['name'])
+        sys.argv.append(TEST_LITERAL_DICT['value'])
+        argv_store = Argv(TEST_LITERAL_DICT['name'], type=type(TEST_LITERAL_DICT['result']))
+        result = argv_store.get()
 
-        for arg in TEST_LITERAL_ARGV:
-            mock_parser.parse_known_args.return_value = (Namespace(**arg), [])
-            Argv(list(arg.keys())[0], type=type(list(arg.values())[0]))
-            mock_parser.add_argument.assert_called_once_with(
-                    list(arg.keys())[0],
-                    help=None,
-                    default=SUPPRESS,
-                    type=pconf.store.argv.literal_eval)
-            mock_parser.reset_mock()
+        self.assertEqual(result, {str(TEST_LITERAL_DICT['name']).replace('--', ''): TEST_LITERAL_DICT['result']})
+
+    def test_literal_tuple(self):
+        sys.argv.append(TEST_LITERAL_TUPLE['name'])
+        sys.argv.append(TEST_LITERAL_TUPLE['value'])
+        argv_store = Argv(TEST_LITERAL_TUPLE['name'], type=type(TEST_LITERAL_TUPLE['result']))
+        result = argv_store.get()
+
+        self.assertEqual(result, {str(TEST_LITERAL_TUPLE['name']).replace('--', ''): TEST_LITERAL_TUPLE['result']})
+
+    def test_literal_list(self):
+        sys.argv.append(TEST_LITERAL_LIST['name'])
+        sys.argv.append(TEST_LITERAL_LIST['value'])
+        argv_store = Argv(TEST_LITERAL_LIST['name'], type=type(TEST_LITERAL_LIST['result']))
+        result = argv_store.get()
+
+        self.assertEqual(result, {str(TEST_LITERAL_LIST['name']).replace('--', ''): TEST_LITERAL_LIST['result']})
