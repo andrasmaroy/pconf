@@ -45,7 +45,7 @@ class File():
             with open(path, 'r') as f:
                 self.content = f.read()
         except IOError:
-            self.content = ''
+            self.content = {}
 
     def __set_encoding(self, encoding, parser=None):
         try:
@@ -60,6 +60,8 @@ class File():
             self.content = {}
 
     def __clear_empty_values(self):
+        if not self.content:
+            return
         keys_to_clear = []
         for key, value in iteritems(self.content):
             if value is None:
