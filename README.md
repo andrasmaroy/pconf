@@ -7,7 +7,7 @@
 [![Py Versions](https://img.shields.io/pypi/pyversions/pconf.svg?style=flat)](https://pypi.python.org/pypi/pconf)
 [![Known Vulnerabilities](https://snyk.io/test/github/andrasmaroy/pconf/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/andrasmaroy/pconf?targetFile=requirements.txt)
 
-Hierarchical python configuration with files, environment variables, command-line arguments. Inspired by [nconf](https://github.com/indexzero/nconf).
+Hierarchical python configuration with files, environment variables, command-line arguments.
 
 ## Example
 
@@ -217,7 +217,7 @@ print config['key']
 Test are written using the standard python unittest framework.
 First install the dev requirements:
 ```bash
-python setup.py -q install
+pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ```
 Run the tests from the repository root like so:
@@ -225,5 +225,22 @@ Run the tests from the repository root like so:
 py.test
 ```
 
-#### Author: [Andras Maroy](https://github.com/andrasmaroy)
-#### License: MIT
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/andrasmaroy/pconf/tags). 
+
+## Authors
+
+* [Andras Maroy](https://github.com/andrasmaroy)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Acknowledgments
+
+* Inspired by [nconf](https://github.com/indexzero/nconf)
