@@ -6,7 +6,6 @@ dict:
   list-in-dict:
   - nested-list1
   - nested-list2
-complex: !!python/complex 1+2j
 float: 1.23
 int: 123
 key: value
@@ -15,4 +14,3 @@ list:
 - list2
 - dict-in-list: value
 string-with-specials: Test!@#$%^&*()-_=+[]{};:,<.>/?\'"\`~
-tuple: !!python/tuple [123, string]

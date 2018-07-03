@@ -133,7 +133,7 @@ Pconf.env(parse_values=True)
 Pconf.env(to_lower=True)
 
 # Convert all underscores in the name to dashes, this takes place after separation via the separator option.
-Pconf.env(convert_underscors=True)
+Pconf.env(convert_underscores=True)
 
 # Use all at once
 Pconf.env(separator='__',
@@ -145,7 +145,7 @@ Pconf.env(separator='__',
 ```
 
 ### File
-Responsible for loading values parsed from a given file into the configuration hierarchy.
+Responsible for loading values parsed from a given file into the configuration hierarchy. If the file does not exist the result will be empty and no error is thrown.
 
 By default tries to parse file contents as literal python variables, use the `encoding` parameter to set the file format/encoding.
 ``` python

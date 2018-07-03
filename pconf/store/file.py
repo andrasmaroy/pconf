@@ -28,7 +28,7 @@ class File():
         'ini': parse_ini,
         'json': json.loads,
         'raw': literal_eval,
-        'yaml': yaml.load
+        'yaml': yaml.safe_load
     }
 
     def __init__(self, path, encoding='raw', parser=None):

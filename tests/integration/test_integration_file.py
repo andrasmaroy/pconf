@@ -14,6 +14,8 @@ class TestIntegrationArgv(IntegrationBase):
 
     def test_integration_yaml(self):
         self.maxDiff = None
+        IntegrationBase.result.pop('complex')
+        IntegrationBase.result.pop('tuple')
         Pconf.file('./tests/integration/example.yaml', encoding='yaml')
         config = Pconf.get()
         self.assertEqual(config, IntegrationBase.result)
