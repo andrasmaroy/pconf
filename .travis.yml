@@ -21,3 +21,4 @@ deploy:
   on:
     tags: true
     repo: andrasmaroy/pconf
+  skip_existing: true
