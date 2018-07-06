@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name="pconf",
-    version="1.3.3",
+    version="1.4.0",
     author="Andras Maroy",
     author_email="andras@maroy.hu",
     description=("Hierarchical python configuration with files, environment variables, command-line arguments."),
@@ -33,6 +33,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.7'
     ],
     install_requires=['pyyaml', 'six'],
     extras_require={
