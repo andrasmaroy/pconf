@@ -214,16 +214,24 @@ config = Pconf.get()
 print config['key']
 ```
 
-## Run Tests
-Test are written using the standard python unittest framework.
+## Run tests and linter
 First install the dev requirements:
 ```bash
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ```
+### Tests
+Test are written using the standard python unittest framework.
 Run the tests from the repository root like so:
 ```bash
 py.test
+```
+
+### Linter
+For code linting [flake8](http://flake8.pycqa.org/en/latest/) is used.
+Run the linter from the repository root like so:
+```bash
+flake8 --max-line-length=140 pconf tests
 ```
 
 ## Contributing
