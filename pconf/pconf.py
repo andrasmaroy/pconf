@@ -3,7 +3,7 @@ from .store import env
 from .store import file
 from .store import memory
 
-from six import iteritems
+from deepmerge import Merger
 
 
 class Pconf(object):
@@ -16,6 +16,12 @@ class Pconf(object):
     After sources are set the values can be accessed by calling get()
     """
     __hierarchy = []
+
+    merger = Merger(
+        [(dict, ["merge"])],
+        ["override"],
+        ["override"]
+    )
 
     @classmethod
     def get(cls):
@@ -30,10 +36,11 @@ class Pconf(object):
         """
         results = {}
 
-        for storeMethod in cls.__hierarchy:
-            for key, value in iteritems(storeMethod.get()):
-                if key not in results:
-                    results[key] = value
+        hierarchy = cls.__hierarchy
+        hierarchy.reverse()
+
+        for storeMethod in hierarchy:
+            cls.merger.merge(results, storeMethod.get())
 
         return results
 
