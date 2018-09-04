@@ -4,8 +4,6 @@ from pconf import Pconf
 
 
 class TestHierarchy(TestCase):
-
-
     def setUp(self):
         Pconf._Pconf__hierarchy = []
         self.TEST_FILE_PATH = 'test'
@@ -17,11 +15,11 @@ class TestHierarchy(TestCase):
     def test_forward(self, mock_file, mock_env):
         mocked_env = MagicMock()
         mocked_env.get.return_value = self.TEST_ENV_RESULT
-        mock_env.return_value  = mocked_env
+        mock_env.return_value = mocked_env
 
         mocked_file = MagicMock()
         mocked_file.get.return_value = self.TEST_FILE_RESULT
-        mock_file.return_value  = mocked_file
+        mock_file.return_value = mocked_file
 
         Pconf.env()
         Pconf.file(self.TEST_FILE_PATH)
@@ -44,7 +42,7 @@ class TestHierarchy(TestCase):
     def test_backward(self, mock_file, mock_env):
         mocked_env = MagicMock()
         mocked_env.get.return_value = self.TEST_ENV_RESULT
-        mock_env.return_value  = mocked_env
+        mock_env.return_value = mocked_env
 
         mocked_file = MagicMock()
         mocked_file.get.return_value = self.TEST_FILE_RESULT

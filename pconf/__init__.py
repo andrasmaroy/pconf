@@ -1,1 +1,1 @@
-from .pconf import Pconf
+from .pconf import Pconf  # noqa: F401

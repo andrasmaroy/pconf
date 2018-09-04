@@ -14,8 +14,8 @@ TEST_ENV_VARS = dict(TEST_ENV_VARS, **TEST_ENV_BASE_VARS)
 TEST_ENV_CONVERTED = {'env--var': 'result', 'env--var-2': 'second_result', 'matched-var': 'match', 'whitelisted-var': 'whitelist'}
 TEST_ENV_CONVERTED_SEPARATED = {'env': {'var': 'result', 'var-2': 'second_result'}, 'matched-var': 'match', 'whitelisted-var': 'whitelist'}
 TEST_ENV_UPPERCASE = {'ENV__VAR': 'result', 'ENV__VAR_2': 'second_result', 'MATCHED_VAR': 'match', 'WHITELISTED_VAR': 'whitelist'}
-TEST_ENV_TYPED_VARS = {'key': 'value', 'int': '123', 'float': '1.23', 'complex': '1+2j', 'list': "['list1', 'list2', {'dict_in_list': 'value'}]", 'dict': "{'nested_dict': 'nested_value'}", 'tuple': "(123, 'string')", 'bool': 'True', 'boolstring': 'false', 'string_with_specials': 'Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"`~'}
-TEST_ENV_TYPED_VARS_PARSED = {'key': 'value', 'int': 123, 'float': 1.23, 'complex': 1+2j, 'list': ['list1', 'list2', {'dict_in_list': 'value'}], 'dict': {'nested_dict': 'nested_value'}, 'tuple': (123, 'string'), 'bool': True, 'boolstring': False, 'string_with_specials': 'Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"`~'}
+TEST_ENV_TYPED_VARS = {'key': 'value', 'int': '123', 'float': '1.23', 'complex': '1+2j', 'list': "['list1', 'list2', {'dict_in_list': 'value'}]", 'dict': "{'nested_dict': 'nested_value'}", 'tuple': "(123, 'string')", 'bool': 'True', 'boolstring': 'false', 'string_with_specials': 'Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"`~'}  # noqa: E501
+TEST_ENV_TYPED_VARS_PARSED = {'key': 'value', 'int': 123, 'float': 1.23, 'complex': 1+2j, 'list': ['list1', 'list2', {'dict_in_list': 'value'}], 'dict': {'nested_dict': 'nested_value'}, 'tuple': (123, 'string'), 'bool': True, 'boolstring': False, 'string_with_specials': 'Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"`~'}  # noqa: E501
 
 TEST_SEPARATOR = '__'
 TEST_MATCH = r'^matched'
@@ -23,6 +23,7 @@ TEST_WHITELIST = ['whitelisted_var', 'whitelist2']
 TEST_PARSE_VALUES = True
 TEST_TO_LOWER = True
 TEST_CONVERT_UNDERSCORES = True
+
 
 class TestEnv(TestCase):
     def test_default_params(self):
@@ -36,7 +37,14 @@ class TestEnv(TestCase):
         self.assertEqual(env_store.convert_underscores, False)
 
     def test_optional_params(self):
-        env_store = Env(separator=TEST_SEPARATOR, match=TEST_MATCH, whitelist=TEST_WHITELIST, parse_values=TEST_PARSE_VALUES, to_lower=TEST_TO_LOWER, convert_underscores=TEST_CONVERT_UNDERSCORES)
+        env_store = Env(
+                separator=TEST_SEPARATOR,
+                match=TEST_MATCH,
+                whitelist=TEST_WHITELIST,
+                parse_values=TEST_PARSE_VALUES,
+                to_lower=TEST_TO_LOWER,
+                convert_underscores=TEST_CONVERT_UNDERSCORES
+                )
 
         self.assertEqual(env_store.separator, TEST_SEPARATOR)
         self.assertEqual(env_store.match, TEST_MATCH)

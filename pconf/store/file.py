@@ -58,7 +58,7 @@ class File():
     def __parse_content(self):
         try:
             self.content = self.parser(self.content)
-        except:
+        except Exception:
             self.content = {}
 
     def __clear_empty_values(self):

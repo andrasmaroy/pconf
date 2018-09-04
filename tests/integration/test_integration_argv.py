@@ -4,9 +4,6 @@ from pconf import Pconf
 
 
 class TestIntegrationArgv(IntegrationBase):
-    
-    maxDiff = None
-
     def test_integration(self):
         sys.argv.append("pconf")
         sys.argv.append("--bool")

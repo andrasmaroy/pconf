@@ -112,4 +112,3 @@ class Env(object):
             else:
                 new_dict[operation(key)] = env_vars[key]
         return new_dict
-
