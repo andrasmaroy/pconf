@@ -20,8 +20,14 @@ matrix:
 install:
   - python setup.py -q install
   - pip install -r requirements-dev.txt
+# setup flake8
+before_script:
+  - echo '[flake8]' >> setup.cfg
+  - echo 'max-line-length = 140' >> setup.cfg
 # command to run tests
-script: py.test --cov=./pconf/ ./tests/
+script:
+  - py.test --cov=./pconf/ ./tests/
+  - flake8 pconf tests
 # submit coverage
 after_success: codecov
 deploy:

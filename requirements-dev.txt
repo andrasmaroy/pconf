@@ -1,4 +1,5 @@
-pytest
-mock
 codecov
+flake8
+mock
+pytest
 pytest-cov
