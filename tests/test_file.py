@@ -1,7 +1,8 @@
-from unittest import TestCase
+from unittest import TestCase, skipIf
 from mock import patch, mock_open, MagicMock
 from pconf.store.file import File
 from sys import version_info
+from warnings import simplefilter
 
 
 TEST_FILE_PATH = 'test'
@@ -37,12 +38,12 @@ class TestFile(TestCase):
 
     @patch(MOCK_OPEN_FUNCTION, side_effect=throw_ioerror)
     def test_open_nonexistent_file_returns_empty_dict(self, mock_open):
-        with self.assertWarns(UserWarning):
-            file_store = File(TEST_FILE_PATH)
-            result = file_store.get()
+        simplefilter('ignore')
+        file_store = File(TEST_FILE_PATH)
+        result = file_store.get()
 
-            self.assertEqual(result, {})
-            self.assertIsInstance(result, dict)
+        self.assertEqual(result, {})
+        self.assertIsInstance(result, dict)
 
     @patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_RAW))
     def test_custom_encoding_without_parser_returns_empty_dict(self):
@@ -136,7 +137,14 @@ class TestFile(TestCase):
 
     @patch(MOCK_OPEN_FUNCTION, side_effect=IOError('No such file or directory'))
     def test_non_existent_file(self, mock_open):
+        simplefilter('ignore')
         file_store = File(TEST_FILE_PATH, encoding='yaml')
         result = file_store.get()
 
         self.assertEqual(result, {})
+
+    @skipIf(version_info.major < 3, 'Testing for warning not supported in Python2')
+    @patch(MOCK_OPEN_FUNCTION, side_effect=throw_ioerror)
+    def test_nonexsitent_file_raises_warning(self, mock_open):
+        with self.assertWarns(UserWarning):
+            File(TEST_FILE_PATH)
