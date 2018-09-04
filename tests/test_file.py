@@ -37,14 +37,15 @@ class TestFile(TestCase):
 
     @patch(MOCK_OPEN_FUNCTION, side_effect=throw_ioerror)
     def test_open_nonexistent_file_returns_empty_dict(self, mock_open):
-        file_store = File(TEST_FILE_PATH)
-        result = file_store.get()
+        with self.assertWarns(UserWarning):
+            file_store = File(TEST_FILE_PATH)
+            result = file_store.get()
 
-        self.assertEqual(result, {})
-        self.assertIsInstance(result, dict)
+            self.assertEqual(result, {})
+            self.assertIsInstance(result, dict)
 
-    @patch(MOCK_OPEN_FUNCTION, side_effect=throw_ioerror)
-    def test_custom_encoding_without_parser_returns_empty_dict(self, mock_open):
+    @patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_RAW))
+    def test_custom_encoding_without_parser_returns_empty_dict(self):
         file_store = File(TEST_FILE_PATH, encoding='foo')
         result = file_store.get()
 

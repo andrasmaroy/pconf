@@ -1,5 +1,6 @@
 from ast import literal_eval
 from six import iteritems
+from warnings import warn
 import json
 import yaml
 
@@ -45,6 +46,7 @@ class File():
             with open(path, 'r') as f:
                 self.content = f.read()
         except IOError:
+            warn('IOError when opening {}'.format(path), UserWarning)
             self.content = {}
 
     def __set_encoding(self, encoding, parser=None):
