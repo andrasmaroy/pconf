@@ -19,7 +19,7 @@ TEST_ARGV_RESULT = {'test': True, 'argv': 'result'}
 
 class TestPconf(TestCase):
     def setUp(self):
-        Pconf._Pconf__hierarchy = []
+        Pconf.clear()
 
     def test_get_empty_dict_by_default(self):
         self.assertEqual(Pconf.get(), {})
@@ -142,3 +142,9 @@ class TestPconf(TestCase):
         for key in TEST_ARGV_RESULT:
             self.assertTrue(key in results)
             self.assertEqual(results[key], TEST_ARGV_RESULT[key])
+
+    def test_clear(self):
+        Pconf.defaults(TEST_OVERRIDES)
+        self.assertEqual(Pconf.get(), TEST_OVERRIDES)
+        Pconf.clear()
+        self.assertEqual(Pconf.get(), {})

@@ -120,3 +120,12 @@ class Pconf(object):
                 when called with the contents of the file as an argument.
         """
         cls.__hierarchy.append(file.File(path, encoding, parser))
+
+    @classmethod
+    def clear(cls):
+        """Purge everything from the current hierarchy.
+
+        In case of the need for multiple configurations this can be used to
+        reset everything to a blank slate and start over.
+        """
+        del cls.__hierarchy[:]  # instead of clear() to maintain 2.7 compatibility

@@ -5,7 +5,7 @@ from pconf import Pconf
 
 class TestHierarchy(TestCase):
     def setUp(self):
-        Pconf._Pconf__hierarchy = []
+        Pconf.clear()
         self.TEST_FILE_PATH = 'test'
         self.TEST_FILE_RESULT = {'file': 'result', 'overlapping': 'file', 'deep': {'stillhere': 'stillhere', 'overlapping': 'file'}}
         self.TEST_ENV_RESULT = {'env': 'result', 'overlapping': 'env', 'deep': {'overlapping': 'env'}}

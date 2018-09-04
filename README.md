@@ -214,6 +214,20 @@ config = Pconf.get()
 print config['key']
 ```
 
+## Clearing content
+There are cases when there is a need for multiple configurations, to make this work after setting up a hierarchy one should save it in a dictionary and then use the `clear()` method to reset Pconf's internal state.
+```
+>>> Pconf.defaults({"foo": "bar"})
+>>> config = Pconf.get()
+>>> config
+{'foo': 'bar'}
+>>> Pconf.clear()
+>>> Pconf.get()
+{}
+>>> config
+{'foo': 'bar'}
+```
+
 ## Run tests and linter
 First install the dev requirements:
 ```bash

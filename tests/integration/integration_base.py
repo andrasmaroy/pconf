@@ -6,7 +6,7 @@ class IntegrationBase(TestCase):
     result = {}
 
     def setUp(self):
-        Pconf._Pconf__hierarchy = []
+        Pconf.clear()
         IntegrationBase.result = {
                 'tuple': (123, 'string'),
                 'int': 123,
