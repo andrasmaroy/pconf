@@ -13,4 +13,4 @@ list:
 - list1
 - list2
 - dict-in-list: value
-string-with-specials: Test!@#$%^&*()-_=+[]{};:,<.>/?\'"\`~
+string-with-specials: Test!@#$%^&*()-_=+[]{};:,<.>/?\'"`~

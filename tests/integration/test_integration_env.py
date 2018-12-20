@@ -12,7 +12,7 @@ class TestIntegrationArgv(IntegrationBase):
         os.environ["INT"] = "123"
         os.environ["KEY"] = "value"
         os.environ["LIST"] = "[ \"list1\", \"list2\", { \"dict-in-list\": \"value\" } ]"
-        os.environ["STRING_WITH_SPECIALS"] = "Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"\`~"
+        os.environ["STRING_WITH_SPECIALS"] = "Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"`~"
         os.environ["TUPLE"] = "(123, \"string\")"
         os.environ["COMPLEX"] = "1+2j"
 

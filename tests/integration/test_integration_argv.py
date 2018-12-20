@@ -20,7 +20,7 @@ class TestIntegrationArgv(IntegrationBase):
         sys.argv.append("--list")
         sys.argv.append("[ \"list1\", \"list2\", { \"dict-in-list\": \"value\" } ]")
         sys.argv.append("--string-with-specials")
-        sys.argv.append("Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"\`~")
+        sys.argv.append("Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"`~")
         sys.argv.append("--tuple")
         sys.argv.append("(123, \"string\")")
         sys.argv.append("--complex")

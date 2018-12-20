@@ -16,6 +16,6 @@ class IntegrationBase(TestCase):
                 'bool': True,
                 'key': 'value',
                 'boolstring': 'false',
-                'string-with-specials': 'Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'"\\`~',
+                'string-with-specials': 'Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'"`~',
                 'dict': {'dict': 'value', 'list-in-dict': ['nested-list1', 'nested-list2']}
                 }
