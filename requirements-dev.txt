@@ -1,5 +1,5 @@
 codecov==2.0.15
 flake8==3.7.4
 mock==2.0.0
-pytest
+pytest==4.2.0
 pytest-cov
