@@ -1,5 +1,5 @@
-codecov
-flake8
-mock
-pytest
-pytest-cov
+codecov==2.0.15
+flake8==3.7.4
+mock==2.0.0
+pytest==4.2.0
+pytest-cov==2.6.1
