@@ -1,5 +1,5 @@
 codecov==2.0.15
-flake8
+flake8==3.7.4
 mock
 pytest
 pytest-cov
