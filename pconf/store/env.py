@@ -92,11 +92,11 @@ class Env(object):
             if self.__valid_key(key):
                 self.vars[key] = env_vars[key]
 
-        if self.separator is not None:
-            self.__split_vars(self.vars)
-
         if self.parse_values:
             self.__try_parse(self.vars)
+
+        if self.separator is not None:
+            self.__split_vars(self.vars)
 
     def __to_lower(self, key):
         return key.lower()
