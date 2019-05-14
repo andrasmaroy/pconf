@@ -118,7 +118,7 @@ class TestEnv(TestCase):
     @patch('pconf.store.env.os', new=MagicMock())
     def test_parse_values(self):
         pconf.store.env.os.environ = TEST_ENV_TYPED_VARS
-        env_store = Env(parse_values=TEST_TO_LOWER)
+        env_store = Env(parse_values=TEST_PARSE_VALUES)
         result = env_store.get()
         self.assertEqual(result, TEST_ENV_TYPED_VARS_PARSED)
         self.assertIsInstance(result, dict)
@@ -153,4 +153,16 @@ class TestEnv(TestCase):
         env_store = Env(separator=TEST_SEPARATOR, convert_underscores=TEST_CONVERT_UNDERSCORES)
         result = env_store.get()
         self.assertEqual(result, TEST_ENV_CONVERTED_SEPARATED)
+        self.assertIsInstance(result, dict)
+
+    @patch('pconf.store.env.os', new=MagicMock())
+    def test_parse_and_split_order(self):
+        pconf.store.env.os.environ = TEST_ENV_VARS
+        try:
+            env_store = Env(separator=TEST_SEPARATOR, parse_values=TEST_PARSE_VALUES)
+        except AttributeError:
+            self.fail("Parsing environment variables raised AttributeError")
+        result = env_store.get()
+
+        self.assertEqual(result, TEST_SEPARATED_VARS)
         self.assertIsInstance(result, dict)
