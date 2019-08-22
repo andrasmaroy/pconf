@@ -10,12 +10,14 @@ if (version_info.major < 3):
     from StringIO import StringIO
 else:
     import configparser as ConfigParser
-    from io import StringIO
 
 
 def parse_ini(content):
     config = ConfigParser.ConfigParser(allow_no_value=True)
-    config.readfp(StringIO(content))
+    if (version_info.major < 3):
+        config.readfp(StringIO(content))
+    else:
+        config.read_string(content)
     if len(config.sections()) == 0:
         return dict(config.items('DEFAULT'))
     result = {}
