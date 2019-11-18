@@ -15,6 +15,7 @@ class TestIntegrationArgv(IntegrationBase):
         os.environ["STRING_WITH_SPECIALS"] = "Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"`~"
         os.environ["TUPLE"] = "(123, \"string\")"
         os.environ["COMPLEX"] = "1+2j"
+        os.environ["SECRET_FILE"] = "./tests/integration/example_secret"
 
         Pconf.env(
                 whitelist=[
@@ -27,11 +28,13 @@ class TestIntegrationArgv(IntegrationBase):
                     'TUPLE',
                     'BOOL',
                     'BOOLSTRING',
-                    'STRING_WITH_SPECIALS'
+                    'STRING_WITH_SPECIALS',
+                    'SECRET_FILE'
                     ],
                 parse_values=True,
                 to_lower=True,
-                convert_underscores=True
+                convert_underscores=True,
+                docker_secrets=['SECRET_FILE']
                 )
         config = Pconf.get()
         self.assertEqual(config, IntegrationBase.result)

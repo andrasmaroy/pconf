@@ -8,6 +8,7 @@ class TestIntegrationArgv(IntegrationBase):
         # Remove values that are not json encodeable
         IntegrationBase.result.pop('complex')
         IntegrationBase.result.pop('tuple')
+        IntegrationBase.result.pop('secret')
         Pconf.file('./tests/integration/example.json', encoding='json')
         config = Pconf.get()
         self.assertEqual(config, IntegrationBase.result)
@@ -16,6 +17,7 @@ class TestIntegrationArgv(IntegrationBase):
         self.maxDiff = None
         IntegrationBase.result.pop('complex')
         IntegrationBase.result.pop('tuple')
+        IntegrationBase.result.pop('secret')
         Pconf.file('./tests/integration/example.yaml', encoding='yaml')
         config = Pconf.get()
         self.assertEqual(config, IntegrationBase.result)

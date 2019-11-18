@@ -5,6 +5,8 @@ from pconf import Pconf
 
 class TestIntegrationArgv(IntegrationBase):
     def test_integration(self):
+        IntegrationBase.result.pop('secret')
+
         sys.argv.append("pconf")
         sys.argv.append("--bool")
         sys.argv.append("--boolstring")
