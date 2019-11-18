@@ -1,7 +1,8 @@
 import os
 import re
-from six import iteritems
 from ast import literal_eval
+from six import iteritems
+from warnings import warn
 
 
 class Env(object):
@@ -12,6 +13,7 @@ class Env(object):
         self.parse_values = parse_values
         self.to_lower = to_lower
         self.convert_underscores = convert_underscores
+        self.docker_secrets = docker_secrets
 
         if self.match is not None:
             self.re = re.compile(self.match)
@@ -84,13 +86,25 @@ class Env(object):
             except (ValueError, SyntaxError):
                 pass
 
+    def __handle_docker_secret(self, key, value):
+        postfix = '_FILE'
+        if key.endswith(postfix):
+            try:
+                with open(value, 'r') as f:
+                    self.vars[key[0:-len(postfix)]] = f.read().strip()
+            except IOError:
+                warn('IOError when opening {}'.format(value), UserWarning)
+
     def __gather_vars(self):
         self.vars = {}
         env_vars = os.environ
 
         for key in env_vars.keys():
             if self.__valid_key(key):
-                self.vars[key] = env_vars[key]
+                if self.docker_secrets is not None and key in self.docker_secrets:
+                    self.__handle_docker_secret(key, env_vars[key])
+                else:
+                    self.vars[key] = env_vars[key]
 
         if self.parse_values:
             self.__try_parse(self.vars)
