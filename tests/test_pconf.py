@@ -58,20 +58,21 @@ class TestPconf(TestCase):
     def test_env(self):
         Pconf.env()
 
-        pconf.store.env.Env.assert_called_once_with(None, None, None, None, None, None)
+        pconf.store.env.Env.assert_called_once_with(None, None, None, None, None, None, None)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch('pconf.store.env.Env', new=MagicMock(), spec=Env)
     def test_env_optional_params(self):
         separator = 'separator'
         match = 'match'
-        whitelist = 'whitelist'
+        whitelist = ['whitelist']
         parse_values = True
         to_lower = True
         convert_underscores = True
-        Pconf.env(separator, match, whitelist, parse_values, to_lower, convert_underscores)
+        docker_secrets = ['secret_FILE']
+        Pconf.env(separator, match, whitelist, parse_values, to_lower, convert_underscores, docker_secrets)
 
-        pconf.store.env.Env.assert_called_once_with(separator, match, whitelist, parse_values, to_lower, convert_underscores)
+        pconf.store.env.Env.assert_called_once_with(separator, match, whitelist, parse_values, to_lower, convert_underscores, docker_secrets)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch('pconf.store.env.Env')

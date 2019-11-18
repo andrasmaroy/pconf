@@ -5,7 +5,7 @@ from ast import literal_eval
 
 
 class Env(object):
-    def __init__(self, separator=None, match=None, whitelist=None, parse_values=False, to_lower=False, convert_underscores=False):
+    def __init__(self, separator=None, match=None, whitelist=None, parse_values=False, to_lower=False, convert_underscores=False, docker_secrets=None):
         self.separator = separator
         self.match = match
         self.whitelist = whitelist

@@ -83,7 +83,7 @@ class Pconf(object):
         cls.__hierarchy.append(argv.Argv(name, short_name, type, help))
 
     @classmethod
-    def env(cls, separator=None, match=None, whitelist=None, parse_values=None, to_lower=None, convert_underscores=None):
+    def env(cls, separator=None, match=None, whitelist=None, parse_values=None, to_lower=None, convert_underscores=None, docker_secrets=None):
         """Set environment variables as a source.
 
         By default all environment variables available to the process are used.
@@ -100,8 +100,11 @@ class Pconf(object):
             to_lower: Convert all variable names to lower case.
             convert_underscores: Convert all underscores in the name to dashes,
                 this takes place after separation via the separator option.
+            docker_secrets: A list of names with _FILE postfix, which will have
+                their postfix removed and the content of the file pointed by
+                their original value.
         """
-        cls.__hierarchy.append(env.Env(separator, match, whitelist, parse_values, to_lower, convert_underscores))
+        cls.__hierarchy.append(env.Env(separator, match, whitelist, parse_values, to_lower, convert_underscores, docker_secrets))
 
     @classmethod
     def file(cls, path, encoding=None, parser=None):
