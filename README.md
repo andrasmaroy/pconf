@@ -136,6 +136,9 @@ Pconf.env(to_lower=True)
 # Convert all underscores in the name to dashes, this takes place after separation via the separator option.
 Pconf.env(convert_underscores=True)
 
+# Handle docker secrets, described in detail below
+Pconf.env(docker_secrets=['MYSQL_ROOT_PASSWORD_FILE', 'MYSQL_PASSWORD_FILE']
+
 # Use all at once
 Pconf.env(separator='__',
           match='whatever_matches_this_will_be_whitelisted',
@@ -144,6 +147,26 @@ Pconf.env(separator='__',
           to_lower=True,
           convert_underscores=True)
 ```
+#### Docker secret handling
+
+As described in https://docs.docker.com/v17.12/engine/swarm/secrets/#build-support-for-docker-secrets-into-your-images, when using the `docker_secrets` parameter as above, given the following:
+* A docker secret called `db_root_password` containing the value `secret-password`
+* The secret passed to the environment in which Pconf is running
+* The `MYSQL_ROOT_PASSWORD_FILE` environment variable set to `/run/secrets/db_root_password`
+The result of
+```python
+Pconf.env(docker_secrets=['MYSQL_ROOT_PASSWORD_FILE'])
+Pconf.get()
+```
+will be
+```python
+{'MYSQL_ROOT_PASSWORD': 'secret-password'}
+```
+Notice that the environment name passed was stripped from the `_FILE` postfix.
+
+**Note:** this behaviour is not tied specifically to docker secrets, it will read files specified in the variable without regard to its path, will simply drop the value if the file is not found or the variable name does not end with `_FILE`.
+
+Combining this with the other parameters: the files are read **after** regex matching and whitelisting, but **before** parsing and conversions.
 
 ### File
 Responsible for loading values parsed from a given file into the configuration hierarchy. If the file does not exist the result will be empty and no error is thrown.
