@@ -100,7 +100,7 @@ class Env(object):
         if key.endswith(postfix):
             try:
                 with open(value, "r") as f:
-                    self.vars[key[0 : -len(postfix)]] = f.read().strip()
+                    self.vars[key[0 : -len(postfix)]] = f.read().strip()  # noqa: E203
             except IOError:
                 warn("IOError when opening {}".format(value), UserWarning)
 

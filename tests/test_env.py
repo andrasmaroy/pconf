@@ -76,12 +76,8 @@ TEST_DOCKER_SECRETS_INVALID_POSTFIX = ["MY_EXAMPLE_SECRET"]
 TEST_DOCKER_SECRETS_PATH = str(list(TEST_DOCKER_SECRETS_RESULT.values())[0])
 
 if version_info.major < 3:
-    import __builtin__
-
     MOCK_OPEN_FUNCTION = "__builtin__.open"
 else:
-    import builtins
-
     MOCK_OPEN_FUNCTION = "builtins.open"
 
 
