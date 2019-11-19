@@ -5,14 +5,16 @@ from pconf import Pconf
 
 class TestIntegrationArgv(IntegrationBase):
     def test_integration(self):
-        IntegrationBase.result.pop('secret')
+        IntegrationBase.result.pop("secret")
 
         sys.argv.append("pconf")
         sys.argv.append("--bool")
         sys.argv.append("--boolstring")
         sys.argv.append("false")
         sys.argv.append("--dict")
-        sys.argv.append("{ \"dict\": \"value\", \"list-in-dict\": [ \"nested-list1\", \"nested-list2\" ] }")
+        sys.argv.append(
+            '{ "dict": "value", "list-in-dict": [ "nested-list1", "nested-list2" ] }'
+        )
         sys.argv.append("--float")
         sys.argv.append("1.23")
         sys.argv.append("--int")
@@ -20,11 +22,11 @@ class TestIntegrationArgv(IntegrationBase):
         sys.argv.append("--key")
         sys.argv.append("value")
         sys.argv.append("--list")
-        sys.argv.append("[ \"list1\", \"list2\", { \"dict-in-list\": \"value\" } ]")
+        sys.argv.append('[ "list1", "list2", { "dict-in-list": "value" } ]')
         sys.argv.append("--string-with-specials")
-        sys.argv.append("Test!@#$%^&*()-_=+[]{};:,<.>/?\\\'\"`~")
+        sys.argv.append("Test!@#$%^&*()-_=+[]{};:,<.>/?\\'\"`~")
         sys.argv.append("--tuple")
-        sys.argv.append("(123, \"string\")")
+        sys.argv.append('(123, "string")')
         sys.argv.append("--complex")
         sys.argv.append("1+2j")
 

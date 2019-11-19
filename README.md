@@ -7,6 +7,7 @@
 [![Py Versions](https://img.shields.io/pypi/pyversions/pconf.svg?style=flat)](https://pypi.python.org/pypi/pconf)
 [![Downloads](https://pepy.tech/badge/pconf)](https://pepy.tech/project/pconf)
 [![Known Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/andrasmaroy/pconf/requirements.txt.svg)](https://snyk.io/test/github/andrasmaroy/pconf?targetFile=requirements.txt)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat)](https://github.com/psf/black)
 
 Hierarchical python configuration with files, environment variables, command-line arguments.
 

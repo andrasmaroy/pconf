@@ -5,7 +5,8 @@ import json
 import yaml
 
 from sys import version_info
-if (version_info.major < 3):
+
+if version_info.major < 3:
     import ConfigParser
     from StringIO import StringIO
 else:
@@ -14,27 +15,27 @@ else:
 
 def parse_ini(content):
     config = ConfigParser.ConfigParser(allow_no_value=True)
-    if (version_info.major < 3):
+    if version_info.major < 3:
         config.readfp(StringIO(content))
     else:
         config.read_string(content)
     if len(config.sections()) == 0:
-        return dict(config.items('DEFAULT'))
+        return dict(config.items("DEFAULT"))
     result = {}
     for section in config.sections():
         result[section] = dict(config.items(section))
     return result
 
 
-class File():
+class File:
     ENCODINGS = {
-        'ini': parse_ini,
-        'json': json.loads,
-        'raw': literal_eval,
-        'yaml': yaml.safe_load
+        "ini": parse_ini,
+        "json": json.loads,
+        "raw": literal_eval,
+        "yaml": yaml.safe_load,
     }
 
-    def __init__(self, path, encoding='raw', parser=None):
+    def __init__(self, path, encoding="raw", parser=None):
         self.__read_file(path)
         self.__set_encoding(encoding, parser)
         self.__parse_content()
@@ -45,10 +46,10 @@ class File():
 
     def __read_file(self, path):
         try:
-            with open(path, 'r') as f:
+            with open(path, "r") as f:
                 self.content = f.read()
         except IOError:
-            warn('IOError when opening {}'.format(path), UserWarning)
+            warn("IOError when opening {}".format(path), UserWarning)
             self.content = {}
 
     def __set_encoding(self, encoding, parser=None):

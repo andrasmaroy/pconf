@@ -1,21 +1,16 @@
 language: python
-matrix:
-    include:
-        - python: 2.7
-          dist: trusty
-          sudo: false
-        - python: 3.4
-          dist: trusty
-          sudo: false
-        - python: 3.5
-          dist: trusty
-          sudo: false
-        - python: 3.6
-          dist: trusty
-          sudo: false
-        - python: 3.7
-          dist: xenial
-          sudo: true
+jobs:
+  include:
+    - python: 2.7
+      env: BLACK=false
+    - python: 3.4
+      env: BLACK=false
+    - python: 3.5
+      env: BLACK=false
+    - python: 3.6
+      env: BLACK=true
+    - python: 3.7
+      env: BLACK=true
 # command to install dependencies
 install:
   - python setup.py -q install
@@ -23,7 +18,8 @@ install:
 # command to run tests
 script:
   - py.test --cov=./pconf/ ./tests/
-  - flake8 --max-line-length=140 pconf tests
+  - flake8 --max-line-length=88 pconf tests
+  - if [ $BLACK = true ]; then black --check pconf tests; fi
 # submit coverage
 after_success: codecov
 deploy:

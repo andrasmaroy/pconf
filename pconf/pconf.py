@@ -15,13 +15,10 @@ class Pconf(object):
 
     After sources are set the values can be accessed by calling get()
     """
+
     __hierarchy = []
 
-    merger = Merger(
-        [(dict, ["merge"])],
-        ["override"],
-        ["override"]
-    )
+    merger = Merger([(dict, ["merge"])], ["override"], ["override"])
 
     @classmethod
     def get(cls):
@@ -83,7 +80,16 @@ class Pconf(object):
         cls.__hierarchy.append(argv.Argv(name, short_name, type, help))
 
     @classmethod
-    def env(cls, separator=None, match=None, whitelist=None, parse_values=None, to_lower=None, convert_underscores=None, docker_secrets=None):
+    def env(
+        cls,
+        separator=None,
+        match=None,
+        whitelist=None,
+        parse_values=None,
+        to_lower=None,
+        convert_underscores=None,
+        docker_secrets=None,
+    ):
         """Set environment variables as a source.
 
         By default all environment variables available to the process are used.
@@ -104,7 +110,17 @@ class Pconf(object):
                 their postfix removed and the content of the file pointed by
                 their original value.
         """
-        cls.__hierarchy.append(env.Env(separator, match, whitelist, parse_values, to_lower, convert_underscores, docker_secrets))
+        cls.__hierarchy.append(
+            env.Env(
+                separator,
+                match,
+                whitelist,
+                parse_values,
+                to_lower,
+                convert_underscores,
+                docker_secrets,
+            )
+        )
 
     @classmethod
     def file(cls, path, encoding=None, parser=None):

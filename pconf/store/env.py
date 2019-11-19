@@ -6,7 +6,16 @@ from warnings import warn
 
 
 class Env(object):
-    def __init__(self, separator=None, match=None, whitelist=None, parse_values=False, to_lower=False, convert_underscores=False, docker_secrets=None):
+    def __init__(
+        self,
+        separator=None,
+        match=None,
+        whitelist=None,
+        parse_values=False,
+        to_lower=False,
+        convert_underscores=False,
+        docker_secrets=None,
+    ):
         self.separator = separator
         self.match = match
         self.whitelist = whitelist
@@ -77,9 +86,9 @@ class Env(object):
     def __try_parse(self, env_vars):
         for key, value in iteritems(env_vars):
             try:
-                if value.lower() == 'true':
+                if value.lower() == "true":
                     env_vars[key] = True
-                elif value.lower() == 'false':
+                elif value.lower() == "false":
                     env_vars[key] = False
                 else:
                     env_vars[key] = literal_eval(value)
@@ -87,13 +96,13 @@ class Env(object):
                 pass
 
     def __handle_docker_secret(self, key, value):
-        postfix = '_FILE'
+        postfix = "_FILE"
         if key.endswith(postfix):
             try:
-                with open(value, 'r') as f:
-                    self.vars[key[0:-len(postfix)]] = f.read().strip()
+                with open(value, "r") as f:
+                    self.vars[key[0 : -len(postfix)]] = f.read().strip()
             except IOError:
-                warn('IOError when opening {}'.format(value), UserWarning)
+                warn("IOError when opening {}".format(value), UserWarning)
 
     def __gather_vars(self):
         self.vars = {}
@@ -116,7 +125,7 @@ class Env(object):
         return key.lower()
 
     def __convert_underscores(self, key):
-        return key.replace('_', '-')
+        return key.replace("_", "-")
 
     def __change_keys(self, env_vars, operation):
         new_dict = {}

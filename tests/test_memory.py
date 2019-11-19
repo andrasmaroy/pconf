@@ -1,7 +1,7 @@
 from unittest import TestCase
 from pconf.store.memory import Memory
 
-TEST_DATA = {'test': 'memory'}
+TEST_DATA = {"test": "memory"}
 
 
 class TestMemory(TestCase):
@@ -11,4 +11,4 @@ class TestMemory(TestCase):
 
     def test_type_check(self):
         with self.assertRaises(TypeError):
-            Memory('string')
+            Memory("string")
