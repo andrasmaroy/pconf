@@ -6,7 +6,7 @@ class Argv(object):
     parser = None
 
     def __init__(self, name, short_name=None, type=None, help=None):
-        if not name.startswith('-') or name.count(' ') != 0:
+        if not name.startswith("-") or name.count(" ") != 0:
             raise ValueError
 
         if Argv.parser is None:
@@ -15,22 +15,24 @@ class Argv(object):
         self.results = {}
 
         args = {}
-        args['help'] = help
+        args["help"] = help
         if type == bool:
-            args['action'] = 'store_true'
+            args["action"] = "store_true"
         # types supported by literal_eval
         elif type in [dict, list, tuple]:
-            args['type'] = literal_eval
-        elif type == 'repeated_list':
-            args['action'] = 'append'
+            args["type"] = literal_eval
+        elif type == "repeated_list":
+            args["action"] = "append"
         else:
-            args['type'] = type
+            args["type"] = type
 
-        if name.lstrip('-').count('-') != 0:
-            args['dest'] = name.lstrip('-')
+        if name.lstrip("-").count("-") != 0:
+            args["dest"] = name.lstrip("-")
 
         if short_name is not None:
-            Argv.parser.add_argument(name, short_name, default=argparse.SUPPRESS, **args)
+            Argv.parser.add_argument(
+                name, short_name, default=argparse.SUPPRESS, **args
+            )
         else:
             Argv.parser.add_argument(name, default=argparse.SUPPRESS, **args)
 

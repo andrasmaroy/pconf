@@ -1,17 +1,28 @@
 import os
 import re
-from six import iteritems
 from ast import literal_eval
+from six import iteritems
+from warnings import warn
 
 
 class Env(object):
-    def __init__(self, separator=None, match=None, whitelist=None, parse_values=False, to_lower=False, convert_underscores=False):
+    def __init__(
+        self,
+        separator=None,
+        match=None,
+        whitelist=None,
+        parse_values=False,
+        to_lower=False,
+        convert_underscores=False,
+        docker_secrets=None,
+    ):
         self.separator = separator
         self.match = match
         self.whitelist = whitelist
         self.parse_values = parse_values
         self.to_lower = to_lower
         self.convert_underscores = convert_underscores
+        self.docker_secrets = docker_secrets
 
         if self.match is not None:
             self.re = re.compile(self.match)
@@ -75,14 +86,23 @@ class Env(object):
     def __try_parse(self, env_vars):
         for key, value in iteritems(env_vars):
             try:
-                if value.lower() == 'true':
+                if value.lower() == "true":
                     env_vars[key] = True
-                elif value.lower() == 'false':
+                elif value.lower() == "false":
                     env_vars[key] = False
                 else:
                     env_vars[key] = literal_eval(value)
             except (ValueError, SyntaxError):
                 pass
+
+    def __handle_docker_secret(self, key, value):
+        postfix = "_FILE"
+        if key.endswith(postfix):
+            try:
+                with open(value, "r") as f:
+                    self.vars[key[0 : -len(postfix)]] = f.read().strip()  # noqa: E203
+            except IOError:
+                warn("IOError when opening {}".format(value), UserWarning)
 
     def __gather_vars(self):
         self.vars = {}
@@ -90,7 +110,10 @@ class Env(object):
 
         for key in env_vars.keys():
             if self.__valid_key(key):
-                self.vars[key] = env_vars[key]
+                if self.docker_secrets is not None and key in self.docker_secrets:
+                    self.__handle_docker_secret(key, env_vars[key])
+                else:
+                    self.vars[key] = env_vars[key]
 
         if self.parse_values:
             self.__try_parse(self.vars)
@@ -102,7 +125,7 @@ class Env(object):
         return key.lower()
 
     def __convert_underscores(self, key):
-        return key.replace('_', '-')
+        return key.replace("_", "-")
 
     def __change_keys(self, env_vars, operation):
         new_dict = {}

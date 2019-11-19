@@ -1,5 +1,6 @@
-codecov==2.0.15
-flake8==3.7.9
-mock==3.0.5
-pytest # pyup: ignore
-pytest-cov # pyup: ignore
+black; python_version > '3.5'
+codecov
+flake8
+mock
+pytest
+pytest-cov
