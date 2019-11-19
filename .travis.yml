@@ -11,6 +11,8 @@ jobs:
       env: BLACK=true
     - python: 3.7
       env: BLACK=true
+    - python: 3.8
+      env: BLACK=true
 # command to install dependencies
 install:
   - python setup.py -q install
