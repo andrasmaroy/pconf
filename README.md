@@ -111,6 +111,14 @@ python example.py --list=item1 --list=item2
 {'list': ['item1', 'item2']}
 ```
 
+#### Using alongside `argparse`
+
+If you want to use `argparse` for not only config values it is possible to integrate the values from there with the structure uesd by Pconf:
+```python
+parsed_args = argparse.ArgumentParser(...).parse_args()
+Pconf.overrides(vars(parsed_args))
+```
+
 ### Env
 Responsible for loading values parsesd from `os.environ` into the configuration hierarchy.
 ``` python
