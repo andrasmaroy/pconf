@@ -1,6 +1,6 @@
 # pconf
 
-[![Build Status](https://img.shields.io/travis/andrasmaroy/pconf.svg?style=flat)](https://travis-ci.org/andrasmaroy/pconf)
+[![Build Status](https://github.com/andrasmaroy/pconf/workflows/Python%20package/badge.svg)](https://github.com/andrasmaroy/pconf/actions?query=workflow%3A%22Python+package%22)
 [![Code Coverage](https://img.shields.io/codecov/c/github/andrasmaroy/pconf.svg?style=flat)](https://codecov.io/gh/andrasmaroy/pconf)
 [![PyPi Version](https://img.shields.io/pypi/v/pconf.svg?style=flat)](https://pypi.python.org/pypi/pconf)
 [![License](https://img.shields.io/pypi/l/pconf.svg?style=flat)](https://pypi.python.org/pypi/pconf)
