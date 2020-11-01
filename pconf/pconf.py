@@ -43,7 +43,7 @@ class Pconf(object):
 
     @classmethod
     def defaults(cls, data):
-        """ Set passed values as a source
+        """Set passed values as a source
 
         Stores the passed dict in memory, use to manually set default values
         in the hierarchy, by setting this in the end.
@@ -55,7 +55,7 @@ class Pconf(object):
 
     @classmethod
     def overrides(cls, data):
-        """ Set passed values as a source
+        """Set passed values as a source
 
         Stores the passed dict in memory, use to manually override any values
         in the hierarchy, by setting this in the front.
@@ -67,7 +67,7 @@ class Pconf(object):
 
     @classmethod
     def argv(cls, name, short_name=None, type=None, help=None):
-        """ Set command line arguments as a source
+        """Set command line arguments as a source
 
         Parses the command line arguments described by the parameters.
 
