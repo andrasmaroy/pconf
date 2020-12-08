@@ -33,8 +33,7 @@ class Pconf(object):
         """
         results = {}
 
-        hierarchy = cls.__hierarchy
-        hierarchy.reverse()
+        hierarchy = cls.__hierarchy[::-1]
 
         for storeMethod in hierarchy:
             cls.merger.merge(results, storeMethod.get())
