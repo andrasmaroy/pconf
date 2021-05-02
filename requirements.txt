@@ -1,2 +1,2 @@
-deepmerge==0.1.1
+deepmerge==0.3.0
 pyyaml>=5.3.1
