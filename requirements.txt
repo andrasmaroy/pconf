@@ -1,3 +1,2 @@
 deepmerge==0.1.1
 pyyaml>=5.3.1
-six==1.15.0

@@ -1,24 +1,13 @@
 from ast import literal_eval
-from six import iteritems
+from configparser import ConfigParser
 from warnings import warn
 import json
 import yaml
 
-from sys import version_info
-
-if version_info.major < 3:
-    import ConfigParser
-    from StringIO import StringIO
-else:
-    import configparser as ConfigParser
-
 
 def parse_ini(content):
-    config = ConfigParser.ConfigParser(allow_no_value=True)
-    if version_info.major < 3:
-        config.readfp(StringIO(content))
-    else:
-        config.read_string(content)
+    config = ConfigParser(allow_no_value=True)
+    config.read_string(content)
     if len(config.sections()) == 0:
         return dict(config.items("DEFAULT"))
     result = {}
@@ -70,7 +59,7 @@ class File:
         if not self.content:
             return
         keys_to_clear = []
-        for key, value in iteritems(self.content):
+        for key, value in self.content.items():
             if value is None:
                 keys_to_clear.append(key)
         for key in keys_to_clear:

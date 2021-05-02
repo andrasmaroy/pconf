@@ -1,7 +1,7 @@
+import builtins
 from unittest import TestCase, skipIf
 from mock import patch, mock_open, MagicMock
 from pconf.store.file import File
-from sys import version_info
 from warnings import simplefilter
 
 
@@ -32,14 +32,8 @@ TEST_FILE_INI_WITH_SECTION = """
 file=result
 """
 TEST_FILE_INI_WITH_SECTION_DICT = {"test": {"file": "result"}}
-if version_info.major < 3:
-    import __builtin__
 
-    MOCK_OPEN_FUNCTION = "__builtin__.open"
-else:
-    import builtins
-
-    MOCK_OPEN_FUNCTION = "builtins.open"
+MOCK_OPEN_FUNCTION = "builtins.open"
 
 
 def throw_ioerror(*args, **kwargs):
@@ -90,10 +84,7 @@ class TestFile(TestCase):
 
         self.assertEqual(result, TEST_FILE_DICT)
         self.assertIsInstance(result, dict)
-        if version_info.major < 3:
-            __builtin__.open.assert_called_once_with(TEST_FILE_PATH, "r")
-        else:
-            builtins.open.assert_called_once_with(TEST_FILE_PATH, "r")
+        builtins.open.assert_called_once_with(TEST_FILE_PATH, "r")
 
     @patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_RAW))
     def test_get_custom_encoding(self):
@@ -167,7 +158,6 @@ class TestFile(TestCase):
 
         self.assertEqual(result, {})
 
-    @skipIf(version_info.major < 3, "Testing for warning not supported in Python2")
     @patch(MOCK_OPEN_FUNCTION, side_effect=throw_ioerror)
     def test_nonexsitent_file_raises_warning(self, mock_open):
         with self.assertWarns(UserWarning):

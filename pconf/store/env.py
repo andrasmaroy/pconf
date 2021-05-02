@@ -1,7 +1,6 @@
 import os
 import re
 from ast import literal_eval
-from six import iteritems
 from warnings import warn
 
 
@@ -84,7 +83,7 @@ class Env(object):
             return
 
     def __try_parse(self, env_vars):
-        for key, value in iteritems(env_vars):
+        for key, value in env_vars.items():
             try:
                 if value.lower() == "true":
                     env_vars[key] = True
@@ -129,7 +128,7 @@ class Env(object):
 
     def __change_keys(self, env_vars, operation):
         new_dict = {}
-        for key, value in iteritems(env_vars):
+        for key, value in env_vars.items():
             if type(value) == dict:
                 new_dict[operation(key)] = self.__change_keys(value, operation)
             else:
