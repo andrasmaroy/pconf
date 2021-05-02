@@ -1,5 +1,4 @@
 from mock import MagicMock, mock_open, patch
-from sys import version_info
 from unittest import TestCase
 from warnings import simplefilter
 
@@ -75,10 +74,7 @@ TEST_DOCKER_SECRETS = list(TEST_ENV_DOCKER_SECRETS.keys())
 TEST_DOCKER_SECRETS_INVALID_POSTFIX = ["MY_EXAMPLE_SECRET"]
 TEST_DOCKER_SECRETS_PATH = str(list(TEST_DOCKER_SECRETS_RESULT.values())[0])
 
-if version_info.major < 3:
-    MOCK_OPEN_FUNCTION = "__builtin__.open"
-else:
-    MOCK_OPEN_FUNCTION = "builtins.open"
+MOCK_OPEN_FUNCTION = "builtins.open"
 
 
 def throw_ioerror(*args, **kwargs):
