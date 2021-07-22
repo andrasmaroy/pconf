@@ -1,7 +1,9 @@
 import os
 import re
 from ast import literal_eval
-from warnings import warn
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Env(object):
@@ -101,7 +103,7 @@ class Env(object):
                 with open(value, "r") as f:
                     self.vars[key[0 : -len(postfix)]] = f.read().strip()  # noqa: E203
             except IOError:
-                warn("IOError when opening {}".format(value), UserWarning)
+                logger.warning("IOError when opening {}".format(value))
 
     def __gather_vars(self):
         self.vars = {}

@@ -1,8 +1,10 @@
+import logging
 from ast import literal_eval
 from configparser import ConfigParser
-from warnings import warn
 import json
 import yaml
+
+logger = logging.getLogger(__name__)
 
 
 def parse_ini(content):
@@ -38,7 +40,7 @@ class File:
             with open(path, "r") as f:
                 self.content = f.read()
         except IOError:
-            warn("IOError when opening {}".format(path), UserWarning)
+            logger.warning("IOError when opening {}".format(path))
             self.content = {}
 
     def __set_encoding(self, encoding, parser=None):
