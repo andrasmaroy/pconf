@@ -113,7 +113,7 @@ python example.py --list=item1 --list=item2
 
 #### Using alongside `argparse`
 
-If you want to use `argparse` for not only config values it is possible to integrate the values from there with the structure uesd by Pconf:
+If you want to use `argparse` for not only config values it is possible to integrate the values from there with the structure used by Pconf:
 ```python
 parsed_args = argparse.ArgumentParser(...).parse_args()
 Pconf.overrides(vars(parsed_args))
