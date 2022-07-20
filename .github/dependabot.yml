@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "black"
+      - dependency-name: "codecov"
+      - dependency-name: "flake8"
+      - dependency-name: "mock"
+      - dependency-name: "pytest"
+      - dependency-name: "pytest-cov"

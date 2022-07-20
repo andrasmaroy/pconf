@@ -1,6 +1,0 @@
-requirements:
-  - requirements.txt
-  - requirements-dev.txt:
-      pin: False
-schedule: "every week on sunday"
-assignees: andrasmaroy
