@@ -1,4 +1,4 @@
-black; python_version > '3.5'
+black==22.6.0; python_version > '3.5'
 codecov
 flake8
 mock
