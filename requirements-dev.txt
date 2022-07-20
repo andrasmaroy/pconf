@@ -1,6 +1,6 @@
 black; python_version > '3.5'
 codecov
 flake8
-mock
+mock==4.0.3
 pytest
 pytest-cov
