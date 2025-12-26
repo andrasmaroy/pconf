@@ -7,9 +7,9 @@ class TestIntegrationArgv(IntegrationBase):
     def test_integration(self):
         os.environ["BOOL"] = "true"
         os.environ["BOOLSTRING"] = '"false"'
-        os.environ[
-            "DICT"
-        ] = '{ "dict": "value", "list-in-dict": [ "nested-list1", "nested-list2" ] }'
+        os.environ["DICT"] = (
+            '{ "dict": "value", "list-in-dict": [ "nested-list1", "nested-list2" ] }'
+        )
         os.environ["FLOAT"] = "1.23"
         os.environ["INT"] = "123"
         os.environ["KEY"] = "value"
