@@ -61,6 +61,12 @@ TEST_ENV_DOCKER_SECRETS_INVALID_POSTFIX = {"MY_EXAMPLE_SECRET": "/run/secrets/my
 TEST_DOCKER_SECRET_CONTENT = "mysecret"
 TEST_DOCKER_SECRETS_RESULT = {"MY_EXAMPLE_SECRET": TEST_DOCKER_SECRET_CONTENT}
 
+TEST_ENV_SEPARATOR_COLLISION_VARS = {
+    "test__key": "first",
+    "test____key": "second",
+}
+TEST_ENV_SEPARATOR_COLLISION_RESULT = {"test": {"key": "first"}}
+
 TEST_SEPARATOR = "__"
 TEST_MATCH = r"^matched"
 TEST_WHITELIST = ["whitelisted_var", "whitelist2"]
@@ -166,6 +172,17 @@ class TestEnv(TestCase):
         result = env_store.get()
 
         self.assertEqual(result, TEST_SEPARATED_VARS)
+        self.assertIsInstance(result, dict)
+
+    @patch("pconf.store.env.os", new=MagicMock())
+    def test_separator_collision_raises_warning(self):
+        pconf.store.env.os.environ = TEST_ENV_SEPARATOR_COLLISION_VARS
+
+        with self.assertWarns(UserWarning):
+            env_store = Env(separator=TEST_SEPARATOR)
+        result = env_store.get()
+
+        self.assertEqual(result, TEST_ENV_SEPARATOR_COLLISION_RESULT)
         self.assertIsInstance(result, dict)
 
     @patch("pconf.store.env.os", new=MagicMock())

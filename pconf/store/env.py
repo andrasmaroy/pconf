@@ -82,6 +82,11 @@ class Env:
         elif isinstance(value, dict):
             self.__merge_split(value, env_vars[key])
         else:
+            warn(
+                f"Conflicting environment variable key '{key}' after splitting, keeping the first value",
+                UserWarning,
+                stacklevel=2,
+            )
             return
 
     def __try_parse(self, env_vars: dict[str, Any]) -> None:
