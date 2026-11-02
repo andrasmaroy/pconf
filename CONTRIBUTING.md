@@ -8,7 +8,9 @@ Please note we have a code of conduct, please follow it in all your interactions
 ## Local Development
 
 This project uses [uv](https://docs.astral.sh/uv/) to manage the Python version, virtual
-environment, and dependencies. After installing uv, run:
+environment, and dependencies. You can either install uv directly, or let
+[mise](https://mise.jdx.dev/) manage it for you via the committed `.mise.toml` (`mise install`).
+Either way, all project commands are run through uv:
 
 ```
 uv sync             # creates .venv and installs the project with its dev dependencies
