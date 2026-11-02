@@ -7,7 +7,6 @@ from pconf.store.env import Env
 from pconf.store.memory import Memory
 from pconf.store.argv import Argv
 
-
 TEST_FILE_PATH = "test"
 TEST_FILE_RESULT = {"file": "result"}
 TEST_ENV_RESULT = {"env": "result"}

@@ -77,7 +77,7 @@ class Env(object):
         if key not in env_vars:
             env_vars[key] = value
             return
-        elif type(value) == dict:
+        elif isinstance(value, dict):
             self.__merge_split(value, env_vars[key])
         else:
             return
@@ -129,7 +129,7 @@ class Env(object):
     def __change_keys(self, env_vars, operation):
         new_dict = {}
         for key, value in env_vars.items():
-            if type(value) == dict:
+            if isinstance(value, dict):
                 new_dict[operation(key)] = self.__change_keys(value, operation)
             else:
                 new_dict[operation(key)] = env_vars[key]

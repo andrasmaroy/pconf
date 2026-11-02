@@ -50,7 +50,7 @@ class File:
     def __parse_content(self):
         try:
             self.content = self.parser(self.content)
-            if type(self.content) != dict:
+            if not isinstance(self.content, dict):
                 self.content = {}
         except Exception:
             self.content = {}

@@ -1,9 +1,8 @@
 import builtins
-from unittest import TestCase, skipIf
+from unittest import TestCase
 from mock import patch, mock_open, MagicMock
 from pconf.store.file import File
 from warnings import simplefilter
-
 
 TEST_FILE_PATH = "test"
 TEST_FILE_DICT = {"file": "result"}

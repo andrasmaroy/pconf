@@ -1,6 +1,6 @@
 class Memory(object):
     def __init__(self, data):
-        if type(data) != dict:
+        if not isinstance(data, dict):
             raise TypeError
         self.data = data
 

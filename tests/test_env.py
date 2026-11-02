@@ -5,7 +5,6 @@ from warnings import simplefilter
 import pconf
 from pconf.store.env import Env
 
-
 TEST_ENV_BASE_VARS = {
     "env__var": "result",
     "env__var_2": "second_result",

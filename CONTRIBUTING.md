@@ -5,6 +5,19 @@ email, or any other method with the owners of this repository before making a ch
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
+## Local Development
+
+This project uses [mise](https://mise.jdx.dev/) to manage the Python version and common dev
+tasks. After installing mise, run:
+
+```
+mise install       # installs the pinned Python version
+mise run install   # installs the project and its dev dependencies
+mise run test      # runs the test suite
+mise run lint      # lints the code
+mise run format     # checks code formatting
+```
+
 ## Pull Request Process
 
 1. Ensure any install or build dependencies are removed before the end of the layer when doing a 
