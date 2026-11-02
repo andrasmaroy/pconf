@@ -4,6 +4,7 @@ from .store import file
 from .store import memory
 
 import argparse
+from typing import Any, Callable
 from deepmerge import Merger
 
 
@@ -17,13 +18,13 @@ class Pconf:
     After sources are set the values can be accessed by calling get()
     """
 
-    __hierarchy = []
-    __argv_parser = None
+    __hierarchy: list[Any] = []
+    __argv_parser: argparse.ArgumentParser | None = None
 
     merger = Merger([(dict, ["merge"])], ["override"], ["override"])
 
     @classmethod
-    def get(cls):
+    def get(cls) -> dict[str, Any]:
         """Get values gathered from the previously set hierarchy.
 
         Respects the order in which sources are set, the first source set
@@ -33,7 +34,7 @@ class Pconf:
         Returns:
             dict: The dictionary containing values gathered from all set sources.
         """
-        results = {}
+        results: dict[str, Any] = {}
 
         hierarchy = cls.__hierarchy[::-1]
 
@@ -43,7 +44,7 @@ class Pconf:
         return results
 
     @classmethod
-    def defaults(cls, data):
+    def defaults(cls, data: dict[str, Any]) -> None:
         """Set passed values as a source
 
         Stores the passed dict in memory, use to manually set default values
@@ -55,7 +56,7 @@ class Pconf:
         cls.__hierarchy.append(memory.Memory(data))
 
     @classmethod
-    def overrides(cls, data):
+    def overrides(cls, data: dict[str, Any]) -> None:
         """Set passed values as a source
 
         Stores the passed dict in memory, use to manually override any values
@@ -67,7 +68,13 @@ class Pconf:
         cls.__hierarchy.append(memory.Memory(data))
 
     @classmethod
-    def argv(cls, name, short_name=None, type=None, help=None):
+    def argv(
+        cls,
+        name: str,
+        short_name: str | None = None,
+        type: type | str | None = None,
+        help: str | None = None,
+    ) -> None:
         """Set command line arguments as a source
 
         Parses the command line arguments described by the parameters.
@@ -85,14 +92,14 @@ class Pconf:
     @classmethod
     def env(
         cls,
-        separator=None,
-        match=None,
-        whitelist=None,
-        parse_values=None,
-        to_lower=None,
-        convert_underscores=None,
-        docker_secrets=None,
-    ):
+        separator: str | None = None,
+        match: str | None = None,
+        whitelist: list[str] | None = None,
+        parse_values: bool | None = None,
+        to_lower: bool | None = None,
+        convert_underscores: bool | None = None,
+        docker_secrets: list[str] | None = None,
+    ) -> None:
         """Set environment variables as a source.
 
         By default all environment variables available to the process are used.
@@ -126,7 +133,7 @@ class Pconf:
         )
 
     @classmethod
-    def file(cls, path, encoding=None, parser=None):
+    def file(cls, path: str, encoding: str | None = None, parser: Callable[[str], Any] | None = None) -> None:
         """Set a file as a source.
 
         File are parsed as literal python dicts by default, this behaviour
@@ -144,7 +151,7 @@ class Pconf:
         cls.__hierarchy.append(file.File(path, encoding, parser))
 
     @classmethod
-    def clear(cls):
+    def clear(cls) -> None:
         """Purge everything from the current hierarchy.
 
         In case of the need for multiple configurations this can be used to

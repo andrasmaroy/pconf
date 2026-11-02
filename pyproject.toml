@@ -35,6 +35,8 @@ test = ["pytest"]
 dev = [
     "codecov",
     "ruff",
+    "mypy",
+    "types-PyYAML",
     "pytest",
     "pytest-cov",
 ]
@@ -62,3 +64,8 @@ branch = true
 
 [tool.coverage.report]
 show_missing = true
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_ignores = true
+warn_redundant_casts = true

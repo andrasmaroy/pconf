@@ -1,17 +1,25 @@
 import argparse
 from ast import literal_eval
+from typing import Any
 
 
 class Argv:
-    def __init__(self, name, short_name=None, type=None, help=None, parser=None):
+    def __init__(
+        self,
+        name: str,
+        short_name: str | None = None,
+        type: type | str | None = None,
+        help: str | None = None,
+        parser: argparse.ArgumentParser | None = None,
+    ) -> None:
         if not name.startswith("-") or name.count(" ") != 0:
             raise ValueError
 
         self.parser = parser if parser is not None else argparse.ArgumentParser()
 
-        self.results = {}
+        self.results: dict[str, Any] = {}
 
-        args = {}
+        args: dict[str, Any] = {}
         args["help"] = help
         if type is bool:
             args["action"] = "store_true"
@@ -31,7 +39,7 @@ class Argv:
         else:
             self.parser.add_argument(name, default=argparse.SUPPRESS, **args)
 
-    def get(self):
+    def get(self) -> dict[str, Any]:
         namespace, _ = self.parser.parse_known_args()
         self.results = vars(namespace)
         return self.results
