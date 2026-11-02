@@ -1,9 +1,10 @@
+import json
 from ast import literal_eval
 from collections.abc import Callable
 from configparser import ConfigParser
 from typing import Any
 from warnings import warn
-import json
+
 import yaml
 
 

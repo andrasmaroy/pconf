@@ -1,12 +1,10 @@
-from .store import argv
-from .store import env
-from .store import file
-from .store import memory
-
 import argparse
 from collections.abc import Callable
 from typing import Any
+
 from deepmerge import Merger
+
+from .store import argv, env, file, memory
 
 
 class Pconf:

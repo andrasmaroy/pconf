@@ -1,5 +1,6 @@
-from pconf import Pconf
 from unittest import TestCase
+
+from pconf import Pconf
 
 
 class IntegrationBase(TestCase):

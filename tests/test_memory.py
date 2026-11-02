@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from pconf.store.memory import Memory
 
 TEST_DATA = {"test": "memory"}

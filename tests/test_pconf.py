@@ -1,11 +1,12 @@
 from unittest import TestCase
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 import pconf
 from pconf import Pconf
-from pconf.store.file import File
-from pconf.store.env import Env
-from pconf.store.memory import Memory
 from pconf.store.argv import Argv
+from pconf.store.env import Env
+from pconf.store.file import File
+from pconf.store.memory import Memory
 
 TEST_FILE_PATH = "test"
 TEST_FILE_RESULT = {"file": "result"}

@@ -1,5 +1,6 @@
 import sys
 from unittest import TestCase
+
 from pconf.store.argv import Argv
 
 TEST_ARGV = {"name": "--argv", "short_name": "-a", "type": str, "help": "help text"}

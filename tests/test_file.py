@@ -1,8 +1,9 @@
 import builtins
 from unittest import TestCase
-from unittest.mock import patch, mock_open, MagicMock
-from pconf.store.file import File
+from unittest.mock import MagicMock, mock_open, patch
 from warnings import simplefilter
+
+from pconf.store.file import File
 
 TEST_FILE_PATH = "test"
 TEST_FILE_DICT = {"file": "result"}
@@ -36,7 +37,7 @@ MOCK_OPEN_FUNCTION = "builtins.open"
 
 
 def throw_ioerror(*args, **kwargs):
-    raise IOError("test")
+    raise OSError("test")
 
 
 class TestFile(TestCase):
@@ -150,7 +151,7 @@ class TestFile(TestCase):
         self.assertEqual(result, TEST_FILE_INI_WITH_SECTION_DICT)
         self.assertIsInstance(result, dict)
 
-    @patch(MOCK_OPEN_FUNCTION, side_effect=IOError("No such file or directory"))
+    @patch(MOCK_OPEN_FUNCTION, side_effect=OSError("No such file or directory"))
     def test_non_existent_file(self, mock_open):
         simplefilter("ignore")
         file_store = File(TEST_FILE_PATH, encoding="yaml")

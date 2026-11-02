@@ -1,5 +1,5 @@
-from unittest.mock import MagicMock, mock_open, patch
 from unittest import TestCase
+from unittest.mock import MagicMock, mock_open, patch
 from warnings import simplefilter
 
 import pconf
@@ -81,7 +81,7 @@ MOCK_OPEN_FUNCTION = "builtins.open"
 
 
 def throw_ioerror(*args, **kwargs):
-    raise IOError("test")
+    raise OSError("test")
 
 
 class TestEnv(TestCase):

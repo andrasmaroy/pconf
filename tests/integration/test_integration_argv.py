@@ -1,6 +1,8 @@
 import sys
-from .integration_base import IntegrationBase
+
 from pconf import Pconf
+
+from .integration_base import IntegrationBase
 
 
 class TestIntegrationArgv(IntegrationBase):
