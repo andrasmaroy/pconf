@@ -7,15 +7,14 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 ## Local Development
 
-This project uses [mise](https://mise.jdx.dev/) to manage the Python version and common dev
-tasks. After installing mise, run:
+This project uses [uv](https://docs.astral.sh/uv/) to manage the Python version, virtual
+environment, and dependencies. After installing uv, run:
 
 ```
-mise install       # installs the pinned Python version
-mise run install   # installs the project and its dev dependencies
-mise run test      # runs the test suite
-mise run lint      # lints the code
-mise run format     # checks code formatting
+uv sync             # creates .venv and installs the project with its dev dependencies
+uv run pytest       # runs the test suite
+uv run flake8 pconf tests  # lints the code
+uv run black --check pconf tests  # checks code formatting
 ```
 
 ## Pull Request Process

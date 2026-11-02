@@ -261,23 +261,22 @@ There are cases when there is a need for multiple configurations, to make this w
 ```
 
 ## Run tests and linter
-First install the dev requirements:
+First install the dependencies with [uv](https://docs.astral.sh/uv/):
 ```bash
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
+uv sync
 ```
 ### Tests
 Test are written using the standard python unittest framework.
 Run the tests from the repository root like so:
 ```bash
-py.test
+uv run pytest
 ```
 
 ### Linter
 For code linting [flake8](http://flake8.pycqa.org/en/latest/) is used.
 Run the linter from the repository root like so:
 ```bash
-flake8 --max-line-length=140 pconf tests
+uv run flake8 --max-line-length=140 pconf tests
 ```
 
 ## Contributing
