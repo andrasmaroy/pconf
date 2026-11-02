@@ -15,8 +15,9 @@ Either way, all project commands are run through uv:
 ```
 uv sync             # creates .venv and installs the project with its dev dependencies
 uv run pytest       # runs the test suite
-uv run flake8 pconf tests  # lints the code
-uv run black --check pconf tests  # checks code formatting
+uv run ruff check . # lints the code
+uv run ruff format --check . # checks code formatting
+uv run mypy pconf   # type checks the code
 ```
 
 ## Pull Request Process
