@@ -278,10 +278,11 @@ uv run pytest
 ```
 
 ### Linter
-For code linting [flake8](http://flake8.pycqa.org/en/latest/) is used.
+For code linting and formatting [ruff](https://docs.astral.sh/ruff/) is used.
 Run the linter from the repository root like so:
 ```bash
-uv run flake8 --max-line-length=140 pconf tests
+uv run ruff check .
+uv run ruff format --check .
 ```
 
 ## Contributing
