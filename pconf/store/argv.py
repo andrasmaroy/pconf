@@ -3,14 +3,11 @@ from ast import literal_eval
 
 
 class Argv:
-    parser = None
-
-    def __init__(self, name, short_name=None, type=None, help=None):
+    def __init__(self, name, short_name=None, type=None, help=None, parser=None):
         if not name.startswith("-") or name.count(" ") != 0:
             raise ValueError
 
-        if Argv.parser is None:
-            Argv.parser = argparse.ArgumentParser()
+        self.parser = parser if parser is not None else argparse.ArgumentParser()
 
         self.results = {}
 
@@ -30,11 +27,11 @@ class Argv:
             args["dest"] = name.lstrip("-")
 
         if short_name is not None:
-            Argv.parser.add_argument(name, short_name, default=argparse.SUPPRESS, **args)
+            self.parser.add_argument(name, short_name, default=argparse.SUPPRESS, **args)
         else:
-            Argv.parser.add_argument(name, default=argparse.SUPPRESS, **args)
+            self.parser.add_argument(name, default=argparse.SUPPRESS, **args)
 
     def get(self):
-        namespace, _ = Argv.parser.parse_known_args()
+        namespace, _ = self.parser.parse_known_args()
         self.results = vars(namespace)
         return self.results

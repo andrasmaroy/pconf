@@ -28,11 +28,9 @@ TEST_DASH_IN_KEY_RESULT = {"dash-this": True}
 class TestArgv(TestCase):
     def setUp(self):
         sys.argv = [sys.argv[0]]
-        Argv.parser = None
 
     def tearDown(self):
         sys.argv = [sys.argv[0]]
-        Argv.parser = None
 
     def test_args_default_params(self):
         sys.argv.append(TEST_ARGV["name"])

@@ -131,7 +131,7 @@ class TestPconf(TestCase):
         arg_name = TEST_ARGV["name"]
         Pconf.argv(arg_name)
 
-        pconf.store.argv.Argv.assert_called_once_with(arg_name, None, None, None)
+        pconf.store.argv.Argv.assert_called_once_with(arg_name, None, None, None, Pconf._Pconf__argv_parser)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch("pconf.store.argv.Argv", new=MagicMock(), spec=Argv)
@@ -142,7 +142,7 @@ class TestPconf(TestCase):
         arg_help = TEST_ARGV["help"]
         Pconf.argv(arg_name, arg_short_name, arg_type, arg_help)
 
-        pconf.store.argv.Argv.assert_called_once_with(arg_name, arg_short_name, arg_type, arg_help)
+        pconf.store.argv.Argv.assert_called_once_with(arg_name, arg_short_name, arg_type, arg_help, Pconf._Pconf__argv_parser)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch("pconf.store.argv.Argv")

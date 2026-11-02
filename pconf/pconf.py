@@ -3,6 +3,7 @@ from .store import env
 from .store import file
 from .store import memory
 
+import argparse
 from deepmerge import Merger
 
 
@@ -17,6 +18,7 @@ class Pconf:
     """
 
     __hierarchy = []
+    __argv_parser = None
 
     merger = Merger([(dict, ["merge"])], ["override"], ["override"])
 
@@ -76,7 +78,9 @@ class Pconf:
             type: the optional type of the argument, defaults to bool
             help: the optional help text for the argument
         """
-        cls.__hierarchy.append(argv.Argv(name, short_name, type, help))
+        if cls.__argv_parser is None:
+            cls.__argv_parser = argparse.ArgumentParser()
+        cls.__hierarchy.append(argv.Argv(name, short_name, type, help, cls.__argv_parser))
 
     @classmethod
     def env(
@@ -147,3 +151,4 @@ class Pconf:
         reset everything to a blank slate and start over.
         """
         cls.__hierarchy.clear()
+        cls.__argv_parser = None
