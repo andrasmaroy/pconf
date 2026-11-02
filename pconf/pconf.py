@@ -4,7 +4,8 @@ from .store import file
 from .store import memory
 
 import argparse
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 from deepmerge import Merger
 
 

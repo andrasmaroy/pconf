@@ -1,7 +1,8 @@
 import os
 import re
 from ast import literal_eval
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 from warnings import warn
 
 
