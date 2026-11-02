@@ -40,11 +40,11 @@ def throw_ioerror(*args, **kwargs):
 
 
 class TestFile(TestCase):
-    @patch(MOCK_OPEN_FUNCTION)
-    def test_open_right_file(self, mock_open):
+    @patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_RAW))
+    def test_open_right_file(self):
         File(TEST_FILE_PATH)
 
-        mock_open.assert_called_once_with(TEST_FILE_PATH, "r")
+        builtins.open.assert_called_once_with(TEST_FILE_PATH, "r")
 
     @patch(MOCK_OPEN_FUNCTION, side_effect=throw_ioerror)
     def test_open_nonexistent_file_returns_empty_dict(self, mock_open):
@@ -57,7 +57,8 @@ class TestFile(TestCase):
 
     @patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_RAW))
     def test_custom_encoding_without_parser_returns_empty_dict(self):
-        file_store = File(TEST_FILE_PATH, encoding="foo")
+        with self.assertWarns(UserWarning):
+            file_store = File(TEST_FILE_PATH, encoding="foo")
         result = file_store.get()
 
         self.assertEqual(result, {})
