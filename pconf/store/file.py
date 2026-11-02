@@ -52,7 +52,8 @@ class File:
             self.content = self.parser(self.content)
             if not isinstance(self.content, dict):
                 self.content = {}
-        except Exception:
+        except Exception as e:
+            warn("Error parsing file contents: {}".format(e), UserWarning)
             self.content = {}
 
     def __clear_empty_values(self):
