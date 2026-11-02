@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "pconf"
 version = "1.11.0"
 description = "Hierarchical python configuration with files, environment variables, command-line arguments."
-readme = "README.rst"
+readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Andras Maroy", email = "andras@maroy.hu" }]
 keywords = ["configuration", "hierarchical"]
