@@ -38,10 +38,10 @@ class File:
 
     def __read_file(self, path: str) -> None:
         try:
-            with open(path, "r") as f:
+            with open(path) as f:
                 self.content = f.read()
         except OSError:
-            warn(f"IOError when opening {path}", UserWarning)
+            warn(f"IOError when opening {path}", UserWarning, stacklevel=2)
             self.content = {}
 
     def __set_encoding(self, encoding: str | None, parser: Callable[[str], Any] | None = None) -> None:
@@ -53,7 +53,7 @@ class File:
             if not isinstance(self.content, dict):
                 self.content = {}
         except Exception as e:
-            warn(f"Error parsing file contents: {e}", UserWarning)
+            warn(f"Error parsing file contents: {e}", UserWarning, stacklevel=2)
             self.content = {}
 
     def __clear_empty_values(self) -> None:

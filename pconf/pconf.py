@@ -37,8 +37,8 @@ class Pconf:
         """
         results: dict[str, Any] = {}
 
-        for storeMethod in reversed(cls.__hierarchy):
-            cls.merger.merge(results, storeMethod.get())
+        for store_method in reversed(cls.__hierarchy):
+            cls.merger.merge(results, store_method.get())
 
         return results
 

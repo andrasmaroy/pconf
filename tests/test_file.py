@@ -44,7 +44,7 @@ class TestFile(TestCase):
     def test_open_right_file(self):
         File(TEST_FILE_PATH)
 
-        builtins.open.assert_called_once_with(TEST_FILE_PATH, "r")
+        builtins.open.assert_called_once_with(TEST_FILE_PATH)
 
     @patch(MOCK_OPEN_FUNCTION, side_effect=throw_ioerror)
     def test_open_nonexistent_file_returns_empty_dict(self, mock_open):
@@ -84,7 +84,7 @@ class TestFile(TestCase):
 
         self.assertEqual(result, TEST_FILE_DICT)
         self.assertIsInstance(result, dict)
-        builtins.open.assert_called_once_with(TEST_FILE_PATH, "r")
+        builtins.open.assert_called_once_with(TEST_FILE_PATH)
 
     @patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_RAW))
     def test_get_custom_encoding(self):

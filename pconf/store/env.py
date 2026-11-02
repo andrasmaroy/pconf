@@ -53,7 +53,7 @@ class Env:
     def __split_vars(self, env_vars: dict[str, Any]) -> None:
         keys_to_delete = []
         dict_to_add: dict[str, Any] = {}
-        for key in env_vars.keys():
+        for key in env_vars:
             splits = key.split(self.separator)
             splits = list(filter(None, splits))
 
@@ -106,16 +106,16 @@ class Env:
         postfix = "_FILE"
         if key.endswith(postfix):
             try:
-                with open(value, "r") as f:
+                with open(value) as f:
                     self.vars[key.removesuffix(postfix)] = f.read().strip()
             except OSError:
-                warn(f"IOError when opening {value}", UserWarning)
+                warn(f"IOError when opening {value}", UserWarning, stacklevel=2)
 
     def __gather_vars(self) -> None:
         self.vars = {}
         env_vars = os.environ
 
-        for key in env_vars.keys():
+        for key in env_vars:
             if self.__valid_key(key):
                 if self.docker_secrets is not None and key in self.docker_secrets:
                     self.__handle_docker_secret(key, env_vars[key])
