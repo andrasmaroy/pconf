@@ -1,6 +1,6 @@
 import builtins
 from unittest import TestCase
-from mock import patch, mock_open, MagicMock
+from unittest.mock import patch, mock_open, MagicMock
 from pconf.store.file import File
 from warnings import simplefilter
 

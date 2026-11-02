@@ -29,17 +29,26 @@ dependencies = ["pyyaml", "deepmerge"]
 Homepage = "https://github.com/andrasmaroy/pconf"
 
 [project.optional-dependencies]
-test = ["pytest", "mock"]
+test = ["pytest"]
 
 [dependency-groups]
 dev = [
-    "black",
     "codecov",
-    "flake8",
-    "mock",
+    "ruff",
     "pytest",
     "pytest-cov",
 ]
 
 [tool.hatch.build.targets.wheel]
 packages = ["pconf"]
+
+[tool.ruff]
+target-version = "py38"
+line-length = 127
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "C90"]
+mccabe.max-complexity = 10
+
+[tool.ruff.format]
+quote-style = "double"

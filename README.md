@@ -23,13 +23,13 @@ Setup pconf config source hierarchy as:
   2. A JSON file located at 'path/to/config.json'
 """
 Pconf.env()
-Pconf.file('path/to/config.json', encoding='json')
+Pconf.file("path/to/config.json", encoding="json")
 
 # Get all the config values parsed from the sources
 config = Pconf.get()
 
 # Just print everything nicely
-print json.dumps(config, sort_keys=True, indent=4)
+print(json.dumps(config, sort_keys=True, indent=4))
 ```
 Run the above script:
 ``` bash
@@ -68,8 +68,8 @@ The available sources (more details about the below) in a sensible order:
 ### Defaults, overrides
 These two sources are essentially the same, pass a `dict` to when attaching and they will return that when queried.
 ``` python
-Pconf.overrides({'key': 'override_value'})
-Pconf.defaults({'key': 'default_value'})
+Pconf.overrides({"key": "override_value"})
+Pconf.defaults({"key": "default_value"})
 ```
 Very simple, as the name suggests these are to allow the user to set defaults and override whatever value.
 
@@ -83,10 +83,10 @@ Parsed arguments can be defined with the following parameters:
 * `help`: the *optional* help text for the argument
 
 ``` python
-Pconf.argv('--test_argument')
-Pconf.argv('--privileged', type=bool)
-Pconf.argv('--threads', short_name='-c', type=int)
-Pconf.argv('--verbose', short_name='-v', type=bool, help='Run in verbose mode')
+Pconf.argv("--test_argument")
+Pconf.argv("--privileged", type=bool)
+Pconf.argv("--threads", short_name="-c", type=int)
+Pconf.argv("--verbose", short_name="-v", type=bool, help="Run in verbose mode")
 ```
 These could be used like:
 ``` bash
@@ -96,7 +96,7 @@ python example.py --test_argument=hello_world -v --threads 4
 Lists can be passed in two ways as arguments
 * literal list
 ```python
-Pconf.argv('--list', type=list)
+Pconf.argv("--list", type=list)
 ```
 ```bash
 python example.py --list="['item1', 'item2']"
@@ -104,7 +104,7 @@ python example.py --list="['item1', 'item2']"
 ```
 * repeated arguments:
 ```python
-Pconf.argv('--list', type='repeated_list')
+Pconf.argv("--list", type="repeated_list")
 ```
 ```bash
 python example.py --list=item1 --list=item2
@@ -164,12 +164,12 @@ As described in https://docs.docker.com/v17.12/engine/swarm/secrets/#build-suppo
 * The `MYSQL_ROOT_PASSWORD_FILE` environment variable set to `/run/secrets/db_root_password`
 The result of
 ```python
-Pconf.env(docker_secrets=['MYSQL_ROOT_PASSWORD_FILE'])
+Pconf.env(docker_secrets=["MYSQL_ROOT_PASSWORD_FILE"])
 Pconf.get()
 ```
 will be
 ```python
-{'MYSQL_ROOT_PASSWORD': 'secret-password'}
+{"MYSQL_ROOT_PASSWORD": "secret-password"}
 ```
 Notice that the environment name passed was stripped from the `_FILE` postfix.
 
@@ -186,7 +186,8 @@ By default tries to parse file contents as literal python variables, use the `en
 `/path/to/literal` contents:
 {'this': 'is_a_literal_python_dict'}
 """
-Pconf.file('/path/to/literal')
+
+Pconf.file("/path/to/literal")
 ```
 
 #### Built-in encodings:
@@ -199,7 +200,8 @@ These are the built-in supported encodings, that can be passed as the `encoding`
     key: value
     another=stuff
     """
-    Pconf.file('/path/to/config.ini', encoding='ini')
+
+    Pconf.file("/path/to/config.ini", encoding="ini")
     ```
     Ini files have to have sections, though the special `DEFAULT` section won't be included as a section header only its contents.
     Also ini files are quite restrictive, only basic types are supported, and most are parsed as strings. If support for more complex types is required AND it has to come from ini files, then look at custom file formats below.
@@ -214,7 +216,8 @@ These are the built-in supported encodings, that can be passed as the `encoding`
         }
     }
     """
-    Pconf.file('/path/to/config.json', encoding='json')
+
+    Pconf.file("/path/to/config.json", encoding="json")
     ```
 * yaml
     ``` python
@@ -225,16 +228,18 @@ These are the built-in supported encodings, that can be passed as the `encoding`
       key: value
       another: stuff
     """
-    Pconf.file('/path/to/config.yaml', encoding='yaml')
+
+    Pconf.file("/path/to/config.yaml", encoding="yaml")
     ```
 
 #### Using custom file formats
 To use custom encodings supply a parser along with an encoding that is not built-in. The parser is a function that expects the file contents as its argument and returns a dict containing the parsed contents.
 ``` python
 def custom_parser(file_contents):
-    return {'example': file_contents}
+    return {"example": file_contents}
 
-Pconf.file('/path/to/custom/file', encoding='example', parser=custom_parser)
+
+Pconf.file("/path/to/custom/file", encoding="example", parser=custom_parser)
 ```
 
 ## Getting the config values
@@ -243,7 +248,7 @@ Use the `get` method to get the processed config values. The method returns all 
 ``` python
 config = Pconf.get()
 
-print config['key']
+print(config["key"])
 ```
 
 ## Clearing content

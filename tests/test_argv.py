@@ -86,52 +86,34 @@ class TestArgv(TestCase):
     def test_literal_dict(self):
         sys.argv.append(TEST_LITERAL_DICT["name"])
         sys.argv.append(TEST_LITERAL_DICT["value"])
-        argv_store = Argv(
-            TEST_LITERAL_DICT["name"], type=type(TEST_LITERAL_DICT["result"])
-        )
+        argv_store = Argv(TEST_LITERAL_DICT["name"], type=type(TEST_LITERAL_DICT["result"]))
         result = argv_store.get()
 
         self.assertEqual(
             result,
-            {
-                str(TEST_LITERAL_DICT["name"]).replace("--", ""): TEST_LITERAL_DICT[
-                    "result"
-                ]
-            },
+            {str(TEST_LITERAL_DICT["name"]).replace("--", ""): TEST_LITERAL_DICT["result"]},
         )
 
     def test_literal_tuple(self):
         sys.argv.append(TEST_LITERAL_TUPLE["name"])
         sys.argv.append(TEST_LITERAL_TUPLE["value"])
-        argv_store = Argv(
-            TEST_LITERAL_TUPLE["name"], type=type(TEST_LITERAL_TUPLE["result"])
-        )
+        argv_store = Argv(TEST_LITERAL_TUPLE["name"], type=type(TEST_LITERAL_TUPLE["result"]))
         result = argv_store.get()
 
         self.assertEqual(
             result,
-            {
-                str(TEST_LITERAL_TUPLE["name"]).replace("--", ""): TEST_LITERAL_TUPLE[
-                    "result"
-                ]
-            },
+            {str(TEST_LITERAL_TUPLE["name"]).replace("--", ""): TEST_LITERAL_TUPLE["result"]},
         )
 
     def test_literal_list(self):
         sys.argv.append(TEST_LITERAL_LIST["name"])
         sys.argv.append(TEST_LITERAL_LIST["value"])
-        argv_store = Argv(
-            TEST_LITERAL_LIST["name"], type=type(TEST_LITERAL_LIST["result"])
-        )
+        argv_store = Argv(TEST_LITERAL_LIST["name"], type=type(TEST_LITERAL_LIST["result"]))
         result = argv_store.get()
 
         self.assertEqual(
             result,
-            {
-                str(TEST_LITERAL_LIST["name"]).replace("--", ""): TEST_LITERAL_LIST[
-                    "result"
-                ]
-            },
+            {str(TEST_LITERAL_LIST["name"]).replace("--", ""): TEST_LITERAL_LIST["result"]},
         )
 
     def test_repeated_list(self):
@@ -144,11 +126,7 @@ class TestArgv(TestCase):
 
         self.assertEqual(
             result,
-            {
-                str(TEST_LITERAL_LIST["name"]).replace("--", ""): TEST_LITERAL_LIST[
-                    "result"
-                ]
-            },
+            {str(TEST_LITERAL_LIST["name"]).replace("--", ""): TEST_LITERAL_LIST["result"]},
         )
 
     def test_invalid_name(self):

@@ -1,4 +1,4 @@
-from mock import MagicMock, mock_open, patch
+from unittest.mock import MagicMock, mock_open, patch
 from unittest import TestCase
 from warnings import simplefilter
 
@@ -57,9 +57,7 @@ TEST_ENV_TYPED_VARS_PARSED = {
     "string_with_specials": "Test!@#$%^&*()-_=+[]{};:,<.>/?\\'\"`~",
 }  # noqa: E501
 TEST_ENV_DOCKER_SECRETS = {"MY_EXAMPLE_SECRET_FILE": "/run/secrets/my_example_secret"}
-TEST_ENV_DOCKER_SECRETS_INVALID_POSTFIX = {
-    "MY_EXAMPLE_SECRET": "/run/secrets/my_example_secret"
-}
+TEST_ENV_DOCKER_SECRETS_INVALID_POSTFIX = {"MY_EXAMPLE_SECRET": "/run/secrets/my_example_secret"}
 TEST_DOCKER_SECRET_CONTENT = "mysecret"
 TEST_DOCKER_SECRETS_RESULT = {"MY_EXAMPLE_SECRET": TEST_DOCKER_SECRET_CONTENT}
 
@@ -205,9 +203,7 @@ class TestEnv(TestCase):
     @patch("pconf.store.env.os", new=MagicMock())
     def test_convert_underscore_and_separator(self):
         pconf.store.env.os.environ = TEST_ENV_VARS
-        env_store = Env(
-            separator=TEST_SEPARATOR, convert_underscores=TEST_CONVERT_UNDERSCORES
-        )
+        env_store = Env(separator=TEST_SEPARATOR, convert_underscores=TEST_CONVERT_UNDERSCORES)
         result = env_store.get()
         self.assertEqual(result, TEST_ENV_CONVERTED_SEPARATED)
         self.assertIsInstance(result, dict)

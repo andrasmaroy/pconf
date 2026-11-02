@@ -26,7 +26,7 @@ Example
     config = Pconf.get()
 
     # Just print everything nicely
-    print json.dumps(config, sort_keys=True, indent=4)
+    print(json.dumps(config, sort_keys=True, indent=4))
 
 Run the above script:
 

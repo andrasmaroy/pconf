@@ -1,5 +1,5 @@
 from unittest import TestCase
-from mock import patch, MagicMock
+from unittest.mock import patch, MagicMock
 import pconf
 from pconf import Pconf
 from pconf.store.file import File
@@ -36,9 +36,7 @@ class TestPconf(TestCase):
         mock_parser = MagicMock()
         Pconf.file(path=TEST_FILE_PATH, encoding=encoding, parser=mock_parser)
 
-        pconf.store.file.File.assert_called_once_with(
-            TEST_FILE_PATH, encoding, mock_parser
-        )
+        pconf.store.file.File.assert_called_once_with(TEST_FILE_PATH, encoding, mock_parser)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch("pconf.store.file.File")
@@ -59,9 +57,7 @@ class TestPconf(TestCase):
     def test_env(self):
         Pconf.env()
 
-        pconf.store.env.Env.assert_called_once_with(
-            None, None, None, None, None, None, None
-        )
+        pconf.store.env.Env.assert_called_once_with(None, None, None, None, None, None, None)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch("pconf.store.env.Env", new=MagicMock(), spec=Env)
@@ -146,9 +142,7 @@ class TestPconf(TestCase):
         arg_help = TEST_ARGV["help"]
         Pconf.argv(arg_name, arg_short_name, arg_type, arg_help)
 
-        pconf.store.argv.Argv.assert_called_once_with(
-            arg_name, arg_short_name, arg_type, arg_help
-        )
+        pconf.store.argv.Argv.assert_called_once_with(arg_name, arg_short_name, arg_type, arg_help)
         self.assertEqual(len(Pconf._Pconf__hierarchy), 1)
 
     @patch("pconf.store.argv.Argv")

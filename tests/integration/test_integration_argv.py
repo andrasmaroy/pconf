@@ -12,9 +12,7 @@ class TestIntegrationArgv(IntegrationBase):
         sys.argv.append("--boolstring")
         sys.argv.append("false")
         sys.argv.append("--dict")
-        sys.argv.append(
-            '{ "dict": "value", "list-in-dict": [ "nested-list1", "nested-list2" ] }'
-        )
+        sys.argv.append('{ "dict": "value", "list-in-dict": [ "nested-list1", "nested-list2" ] }')
         sys.argv.append("--float")
         sys.argv.append("1.23")
         sys.argv.append("--int")

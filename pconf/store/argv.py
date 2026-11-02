@@ -16,7 +16,7 @@ class Argv(object):
 
         args = {}
         args["help"] = help
-        if type == bool:
+        if type is bool:
             args["action"] = "store_true"
         # types supported by literal_eval
         elif type in [dict, list, tuple]:
@@ -30,9 +30,7 @@ class Argv(object):
             args["dest"] = name.lstrip("-")
 
         if short_name is not None:
-            Argv.parser.add_argument(
-                name, short_name, default=argparse.SUPPRESS, **args
-            )
+            Argv.parser.add_argument(name, short_name, default=argparse.SUPPRESS, **args)
         else:
             Argv.parser.add_argument(name, default=argparse.SUPPRESS, **args)
 
