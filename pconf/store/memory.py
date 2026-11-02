@@ -1,11 +1,14 @@
+from dataclasses import dataclass
 from typing import Any
 
 
+@dataclass
 class Memory:
-    def __init__(self, data: dict[str, Any]) -> None:
-        if not isinstance(data, dict):
+    data: dict[str, Any]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.data, dict):
             raise TypeError
-        self.data = data
 
     def get(self) -> dict[str, Any]:
         return self.data

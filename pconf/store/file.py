@@ -39,14 +39,12 @@ class File:
         try:
             with open(path, "r") as f:
                 self.content = f.read()
-        except IOError:
-            warn("IOError when opening {}".format(path), UserWarning)
+        except OSError:
+            warn(f"IOError when opening {path}", UserWarning)
             self.content = {}
 
     def __set_encoding(self, encoding: str | None, parser: Callable[[str], Any] | None = None) -> None:
-        self.parser: Callable[[str], Any] | None = self.ENCODINGS.get(encoding) if encoding is not None else None
-        if self.parser is None:
-            self.parser = parser
+        self.parser: Callable[[str], Any] | None = self.ENCODINGS.get(encoding, parser) if encoding is not None else parser
 
     def __parse_content(self) -> None:
         try:
@@ -54,15 +52,10 @@ class File:
             if not isinstance(self.content, dict):
                 self.content = {}
         except Exception as e:
-            warn("Error parsing file contents: {}".format(e), UserWarning)
+            warn(f"Error parsing file contents: {e}", UserWarning)
             self.content = {}
 
     def __clear_empty_values(self) -> None:
         if not self.content:
             return
-        keys_to_clear = []
-        for key, value in self.content.items():
-            if value is None:
-                keys_to_clear.append(key)
-        for key in keys_to_clear:
-            self.content.pop(key, None)
+        self.content = {key: value for key, value in self.content.items() if value is not None}

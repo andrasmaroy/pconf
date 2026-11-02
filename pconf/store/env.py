@@ -101,9 +101,9 @@ class Env:
         if key.endswith(postfix):
             try:
                 with open(value, "r") as f:
-                    self.vars[key[0 : -len(postfix)]] = f.read().strip()  # noqa: E203
-            except IOError:
-                warn("IOError when opening {}".format(value), UserWarning)
+                    self.vars[key.removesuffix(postfix)] = f.read().strip()
+            except OSError:
+                warn(f"IOError when opening {value}", UserWarning)
 
     def __gather_vars(self) -> None:
         self.vars = {}
