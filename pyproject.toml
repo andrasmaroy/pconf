@@ -33,7 +33,6 @@ test = ["pytest"]
 
 [dependency-groups]
 dev = [
-    "codecov",
     "ruff",
     "mypy",
     "types-PyYAML",
