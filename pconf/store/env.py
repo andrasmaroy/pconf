@@ -4,7 +4,7 @@ from ast import literal_eval
 from warnings import warn
 
 
-class Env(object):
+class Env:
     def __init__(
         self,
         separator=None,

@@ -6,7 +6,7 @@ from .store import memory
 from deepmerge import Merger
 
 
-class Pconf(object):
+class Pconf:
     """Entry point class for the pconf module.
 
     Doesn't need to be instantiated. First set the hierarchy, by calling the
@@ -146,4 +146,4 @@ class Pconf(object):
         In case of the need for multiple configurations this can be used to
         reset everything to a blank slate and start over.
         """
-        del cls.__hierarchy[:]  # instead of clear() to maintain 2.7 compatibility
+        cls.__hierarchy.clear()

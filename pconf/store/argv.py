@@ -2,7 +2,7 @@ import argparse
 from ast import literal_eval
 
 
-class Argv(object):
+class Argv:
     parser = None
 
     def __init__(self, name, short_name=None, type=None, help=None):

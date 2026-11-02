@@ -1,4 +1,4 @@
-class Memory(object):
+class Memory:
     def __init__(self, data):
         if not isinstance(data, dict):
             raise TypeError
