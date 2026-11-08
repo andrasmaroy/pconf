@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pconf"
-version = "1.11.0"
+version = "1.13.0"
 description = "Hierarchical python configuration with files, environment variables, command-line arguments."
 readme = "README.md"
 license = { text = "MIT" }
@@ -44,7 +44,7 @@ dev = [
 packages = ["pconf"]
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py315"
 line-length = 127
 
 [tool.ruff.lint]
