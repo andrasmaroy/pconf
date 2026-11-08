@@ -6,6 +6,13 @@ from .integration_base import IntegrationBase
 
 
 class TestIntegrationArgv(IntegrationBase):
+    def setUp(self):
+        super().setUp()
+        sys.argv = [sys.argv[0]]
+
+    def tearDown(self):
+        sys.argv = [sys.argv[0]]
+
     def test_integration(self):
         IntegrationBase.result.pop("secret")
 
