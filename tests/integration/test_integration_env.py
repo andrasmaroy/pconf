@@ -17,7 +17,7 @@ class TestIntegrationArgv(IntegrationBase):
         os.environ["STRING_WITH_SPECIALS"] = "Test!@#$%^&*()-_=+[]{};:,<.>/?\\'\"`~"
         os.environ["TUPLE"] = '(123, "string")'
         os.environ["COMPLEX"] = "1+2j"
-        os.environ["SECRET_FILE"] = "./tests/integration/example_secret"
+        os.environ["SECRET_FILE"] = "./tests/integration/example_secret"  # noqa: S105
 
         Pconf.env(
             whitelist=[

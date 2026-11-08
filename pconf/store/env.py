@@ -53,12 +53,12 @@ class Env:
     def __split_vars(self, env_vars: dict[str, Any]) -> None:
         keys_to_delete = []
         dict_to_add: dict[str, Any] = {}
-        for key in env_vars:
+        for key, value in env_vars.items():
             splits = key.split(self.separator)
             splits = list(filter(None, splits))
 
             if len(splits) != 1:
-                split = self.__split_var(splits, env_vars[key])
+                split = self.__split_var(splits, value)
                 keys_to_delete.append(key)
                 self.__merge_split(split, dict_to_add)
 
@@ -66,7 +66,7 @@ class Env:
             del env_vars[key]
         env_vars.update(dict_to_add)
 
-    def __split_var(self, keys: list[str], value: Any) -> dict[str, Any]:
+    def __split_var(self, keys: list[str], value: Any) -> dict[str, Any]:  # noqa: ANN401
         if len(keys) == 1:
             return {keys[0]: value}
         else:
@@ -75,8 +75,8 @@ class Env:
             return {key: self.__split_var(keys, value)}
 
     def __merge_split(self, split: dict[str, Any], env_vars: dict[str, Any]) -> None:
-        key = list(split.keys())[0]
-        value = list(split.values())[0]
+        key = next(iter(split.keys()))
+        value = next(iter(split.values()))
         if key not in env_vars:
             env_vars[key] = value
             return
@@ -106,7 +106,7 @@ class Env:
         postfix = "_FILE"
         if key.endswith(postfix):
             try:
-                with open(value) as f:
+                with open(value) as f:  # noqa: PTH123
                     self.vars[key.removesuffix(postfix)] = f.read().strip()
             except OSError:
                 warn(f"IOError when opening {value}", UserWarning, stacklevel=2)
@@ -140,5 +140,5 @@ class Env:
             if isinstance(value, dict):
                 new_dict[operation(key)] = self.__change_keys(value, operation)
             else:
-                new_dict[operation(key)] = env_vars[key]
+                new_dict[operation(key)] = value
         return new_dict

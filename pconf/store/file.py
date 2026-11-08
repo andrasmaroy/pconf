@@ -3,7 +3,7 @@ from ast import literal_eval
 from collections.abc import Callable
 from configparser import ConfigParser
 from pathlib import Path
-from typing import Any
+from typing import Any, ClassVar
 from warnings import warn
 
 import yaml
@@ -21,7 +21,7 @@ def parse_ini(content: str) -> dict[str, Any]:
 
 
 class File:
-    ENCODINGS: dict[str, Callable[[str], Any]] = {
+    ENCODINGS: ClassVar[dict[str, Callable[[str], Any]]] = {
         "ini": parse_ini,
         "json": json.loads,
         "raw": literal_eval,
@@ -40,7 +40,7 @@ class File:
 
     def __read_file(self, path: str | Path) -> None:
         try:
-            with open(path) as f:
+            with open(path) as f:  # noqa: PTH123
                 self.content = f.read()
         except OSError:
             warn(f"IOError when opening {path}", UserWarning, stacklevel=2)
@@ -54,7 +54,7 @@ class File:
             self.content = self.parser(self.content)  # type: ignore[misc]
             if not isinstance(self.content, dict):
                 self.content = {}
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             warn(f"Error parsing file contents: {e}", UserWarning, stacklevel=2)
             self.content = {}
 

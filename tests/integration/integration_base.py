@@ -1,10 +1,11 @@
+from typing import Any, ClassVar
 from unittest import TestCase
 
 from pconf import Pconf
 
 
 class IntegrationBase(TestCase):
-    result = {}
+    result: ClassVar[dict[str, Any]] = {}
 
     def setUp(self):
         Pconf.clear()

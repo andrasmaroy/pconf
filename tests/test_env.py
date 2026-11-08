@@ -43,7 +43,7 @@ TEST_ENV_TYPED_VARS = {
     "bool": "True",
     "boolstring": "false",
     "string_with_specials": "Test!@#$%^&*()-_=+[]{};:,<.>/?\\'\"`~",
-}  # noqa: E501
+}
 TEST_ENV_TYPED_VARS_PARSED = {
     "key": "value",
     "int": 123,
@@ -55,10 +55,10 @@ TEST_ENV_TYPED_VARS_PARSED = {
     "bool": True,
     "boolstring": False,
     "string_with_specials": "Test!@#$%^&*()-_=+[]{};:,<.>/?\\'\"`~",
-}  # noqa: E501
+}
 TEST_ENV_DOCKER_SECRETS = {"MY_EXAMPLE_SECRET_FILE": "/run/secrets/my_example_secret"}
 TEST_ENV_DOCKER_SECRETS_INVALID_POSTFIX = {"MY_EXAMPLE_SECRET": "/run/secrets/my_example_secret"}
-TEST_DOCKER_SECRET_CONTENT = "mysecret"
+TEST_DOCKER_SECRET_CONTENT = "mysecret"  # noqa: S105
 TEST_DOCKER_SECRETS_RESULT = {"MY_EXAMPLE_SECRET": TEST_DOCKER_SECRET_CONTENT}
 
 TEST_ENV_SEPARATOR_COLLISION_VARS = {
@@ -75,7 +75,7 @@ TEST_TO_LOWER = True
 TEST_CONVERT_UNDERSCORES = True
 TEST_DOCKER_SECRETS = list(TEST_ENV_DOCKER_SECRETS.keys())
 TEST_DOCKER_SECRETS_INVALID_POSTFIX = ["MY_EXAMPLE_SECRET"]
-TEST_DOCKER_SECRETS_PATH = str(list(TEST_DOCKER_SECRETS_RESULT.values())[0])
+TEST_DOCKER_SECRETS_PATH = str(next(iter(TEST_DOCKER_SECRETS_RESULT.values())))
 
 MOCK_OPEN_FUNCTION = "builtins.open"
 

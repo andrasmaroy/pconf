@@ -1,7 +1,9 @@
+"""Pconf core module."""
+
 import argparse
 from collections.abc import Callable
 from pathlib import Path
-from typing import Any
+from typing import Any, ClassVar
 
 from deepmerge import Merger
 
@@ -18,7 +20,7 @@ class Pconf:
     After sources are set the values can be accessed by calling get()
     """
 
-    __hierarchy: list[Any] = []
+    __hierarchy: ClassVar[list[Any]] = []
     __argv_parser: argparse.ArgumentParser | None = None
 
     merger = Merger([(dict, ["merge"])], ["override"], ["override"])
@@ -33,6 +35,7 @@ class Pconf:
 
         Returns:
             dict: The dictionary containing values gathered from all set sources.
+
         """
         results: dict[str, Any] = {}
 
@@ -43,25 +46,27 @@ class Pconf:
 
     @classmethod
     def defaults(cls, data: dict[str, Any]) -> None:
-        """Set passed values as a source
+        """Set passed values as a source.
 
         Stores the passed dict in memory, use to manually set default values
         in the hierarchy, by setting this in the end.
 
         Args:
             data: the dict to store
+
         """
         cls.__hierarchy.append(memory.Memory(data))
 
     @classmethod
     def overrides(cls, data: dict[str, Any]) -> None:
-        """Set passed values as a source
+        """Set passed values as a source.
 
         Stores the passed dict in memory, use to manually override any values
         in the hierarchy, by setting this in the front.
 
         Args:
             data: the dict to store
+
         """
         cls.__hierarchy.append(memory.Memory(data))
 
@@ -73,7 +78,7 @@ class Pconf:
         type: type | str | None = None,
         help: str | None = None,
     ) -> None:
-        """Set command line arguments as a source
+        """Set command line arguments as a source.
 
         Parses the command line arguments described by the parameters.
 
@@ -82,6 +87,7 @@ class Pconf:
             short_name: the optional short name of the argument (f)
             type: the optional type of the argument, defaults to bool
             help: the optional help text for the argument
+
         """
         if cls.__argv_parser is None:
             cls.__argv_parser = argparse.ArgumentParser()
@@ -117,6 +123,7 @@ class Pconf:
             docker_secrets: A list of names with _FILE postfix, which will have
                 their postfix removed and the content of the file pointed by
                 their original value.
+
         """
         cls.__hierarchy.append(
             env.Env(
@@ -127,7 +134,7 @@ class Pconf:
                 to_lower,
                 convert_underscores,
                 docker_secrets,
-            )
+            ),
         )
 
     @classmethod
@@ -145,6 +152,7 @@ class Pconf:
             parser: A parser function for a custom encoder.
                 It is expected to return a dict containing the parsed values
                 when called with the contents of the file as an argument.
+
         """
         cls.__hierarchy.append(file.File(path, encoding, parser))
 

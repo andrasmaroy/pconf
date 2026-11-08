@@ -48,8 +48,13 @@ target-version = "py311"
 line-length = 127
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "C90", "UP", "B", "SIM", "I"]
+select = ["ALL"]
+ignore = ["PLR0913", "PLR0917", "RET505", "CPY", "A002", "FBT001", "FBT002", "D203", "D213", "COM812"]
 mccabe.max-complexity = 10
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D", "SLF", "ANN", "ARG", "EM", "PT009", "PT027"]
+"pconf/store/**" = ["D"]
 
 [tool.ruff.format]
 quote-style = "double"

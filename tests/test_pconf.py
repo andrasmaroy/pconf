@@ -50,9 +50,9 @@ class TestPconf(TestCase):
         results = Pconf.get()
 
         mocked_file.get.assert_called_once()
-        for key in TEST_FILE_RESULT:
+        for key, value in TEST_FILE_RESULT.items():
             self.assertTrue(key in results)
-            self.assertEqual(results[key], TEST_FILE_RESULT[key])
+            self.assertEqual(results[key], value)
 
     @patch("pconf.store.env.Env", new=MagicMock(), spec=Env)
     def test_env(self):
@@ -101,9 +101,9 @@ class TestPconf(TestCase):
         results = Pconf.get()
 
         mocked_env.get.assert_called_once()
-        for key in TEST_ENV_RESULT:
+        for key, value in TEST_ENV_RESULT.items():
             self.assertTrue(key in results)
-            self.assertEqual(results[key], TEST_ENV_RESULT[key])
+            self.assertEqual(results[key], value)
 
     @patch("pconf.store.memory.Memory", new=MagicMock(), spec=Memory)
     def test_defaults(self):
@@ -156,9 +156,9 @@ class TestPconf(TestCase):
         Pconf.argv(arg_name)
         results = Pconf.get()
 
-        for key in TEST_ARGV_RESULT:
+        for key, value in TEST_ARGV_RESULT.items():
             self.assertTrue(key in results)
-            self.assertEqual(results[key], TEST_ARGV_RESULT[key])
+            self.assertEqual(results[key], value)
 
     def test_clear(self):
         Pconf.defaults(TEST_OVERRIDES)
