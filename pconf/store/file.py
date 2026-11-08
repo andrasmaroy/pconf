@@ -2,6 +2,7 @@ import json
 from ast import literal_eval
 from collections.abc import Callable
 from configparser import ConfigParser
+from pathlib import Path
 from typing import Any
 from warnings import warn
 
@@ -27,7 +28,7 @@ class File:
         "yaml": yaml.safe_load,
     }
 
-    def __init__(self, path: str, encoding: str | None = "raw", parser: Callable[[str], Any] | None = None) -> None:
+    def __init__(self, path: str | Path, encoding: str | None = "raw", parser: Callable[[str], Any] | None = None) -> None:
         self.content: Any = None
         self.__read_file(path)
         self.__set_encoding(encoding, parser)
@@ -37,7 +38,7 @@ class File:
     def get(self) -> dict[str, Any]:
         return self.content
 
-    def __read_file(self, path: str) -> None:
+    def __read_file(self, path: str | Path) -> None:
         try:
             with open(path) as f:
                 self.content = f.read()

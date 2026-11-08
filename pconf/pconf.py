@@ -1,5 +1,6 @@
 import argparse
 from collections.abc import Callable
+from pathlib import Path
 from typing import Any
 
 from deepmerge import Merger
@@ -130,7 +131,7 @@ class Pconf:
         )
 
     @classmethod
-    def file(cls, path: str, encoding: str | None = None, parser: Callable[[str], Any] | None = None) -> None:
+    def file(cls, path: str | Path, encoding: str | None = None, parser: Callable[[str], Any] | None = None) -> None:
         """Set a file as a source.
 
         File are parsed as literal python dicts by default, this behaviour

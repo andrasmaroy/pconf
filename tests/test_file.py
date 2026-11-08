@@ -1,4 +1,5 @@
 import builtins
+from pathlib import Path
 from unittest import TestCase
 from unittest.mock import MagicMock, mock_open, patch
 from warnings import simplefilter
@@ -46,6 +47,16 @@ class TestFile(TestCase):
         File(TEST_FILE_PATH)
 
         builtins.open.assert_called_once_with(TEST_FILE_PATH)
+
+    def test_accepts_pathlib_path(self):
+        file_path = Path(TEST_FILE_PATH)
+        with patch(MOCK_OPEN_FUNCTION, mock_open(read_data=TEST_FILE_JSON)) as mocked_open:
+            file_store = File(file_path, encoding="json")
+        result = file_store.get()
+
+        mocked_open.assert_called_once_with(file_path)
+        self.assertEqual(result, TEST_FILE_DICT)
+        self.assertIsInstance(result, dict)
 
     @patch(MOCK_OPEN_FUNCTION, side_effect=throw_ioerror)
     def test_open_nonexistent_file_returns_empty_dict(self, mock_open):
